@@ -302,19 +302,19 @@ Widget buildRowThree(context, screenW) => Column(
       children: [
         Row(children: [
           Expanded(
-              child: button(
+              child: buttonProfileOne(
             colorNew: Color(0xFF282c34),
             textNew: "Home",
             isCorrect: true,
           )),
           Expanded(
-              child: button(
+              child: buttonProfileOne(
             colorNew: Color(0xFF282c34),
             textNew: "Order",
             isCorrect: false,
           )),
           Expanded(
-              child: button(
+              child: buttonProfileOne(
             colorNew: Color(0xFF282c34),
             textNew: "Profile",
             isCorrect: false,
@@ -323,41 +323,43 @@ Widget buildRowThree(context, screenW) => Column(
       ],
     );
 
-class button extends StatefulWidget {
+class buttonProfileOne extends StatefulWidget {
   final Color colorNew;
   final String textNew;
   final bool isCorrect;
 
-  const button(
+  const buttonProfileOne(
       {super.key,
       required this.colorNew,
       required this.textNew,
       required this.isCorrect});
 
   @override
-  _buttonState createState() => _buttonState(colorNew, textNew, isCorrect);
+  _buttonProfileOneState createState() => _buttonProfileOneState(colorNew, textNew, isCorrect);
 }
 
-class _buttonState extends State<button> {
+class _buttonProfileOneState extends State<buttonProfileOne> {
   late Color colorNew;
   final String textNew;
   final bool isCorrect;
-  _buttonState(this.colorNew, this.textNew, this.isCorrect);
+  _buttonProfileOneState(this.colorNew, this.textNew, this.isCorrect);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(0.5),
       child: ElevatedButton(
-        onPressed: () {
-          setState(() {
-            colorNew = isCorrect ? Colors.green : Colors.red;
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content:
-                  isCorrect ? Text("Your Score is 1") : Text("Your Score is 0"),
-            ));
-          });
-        },
+        onPressed: () => Navigator.of(context).pop(),
+        // onPressed: () {
+
+        //   setState(() {
+        //     colorNew = isCorrect ? Colors.green : Colors.red;
+        //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //       content:
+        //           isCorrect ? Text("Your Score is 1") : Text("Your Score is 0"),
+        //     ));
+        //   });
+        // },
         style: ElevatedButton.styleFrom(
           primary: colorNew,
           minimumSize: Size(MediaQuery.of(context).size.width / 4,

@@ -75,8 +75,6 @@ Widget buildRowOne(String qusetion) => Container(
                         fontSize: 45,
                         color: Colors.white,
                         fontWeight: FontWeight.w700)),
-                Text(qusetion,
-                    style: TextStyle(fontSize: 20, color: Colors.white)),
               ],
             ),
           ),
@@ -85,210 +83,193 @@ Widget buildRowOne(String qusetion) => Container(
     );
 
 Widget buildRowTwo(context, returnText, data, images, equipment) => Container(
-      color: Color(0xFFd0dce4), // Set background color here
+      color: Colors.white, // Set background color here
       height: 553.5,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Column(
             children: [
               Padding(
                 padding:
-                    EdgeInsets.only(top: 20, left: 0, right: 170, bottom: 20),
-                child: Text(
-                  "Borrowed items",
-                  style: TextStyle(
-                    color: Color(0xFF282c34),
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                    EdgeInsets.only(top: 20, left: 30, right: 170, bottom: 20),
               ),
               ////////////////////
-              SizedBox(
-                width: 300.0,
-                height: MediaQuery.of(context).size.height / 12,
-                child: Container(
-                  color: Color(0xFF282c34),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 15, left: 15, right: 0, bottom: 0),
-                      ),
-                      SizedBox(
-                        width: 80.0,
-                        height: 80.0,
-                        child: Image.asset(images),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 20, left: 30, right: 0, bottom: 0),
-                        child: Text(
-                          equipment,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+              Row(children: [
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 0, left: 20, right: 0, bottom: 0),
+                ),
+                SizedBox(
+                  width: 130.0,
+                  height: MediaQuery.of(context).size.height / 6,
+                  child: Container(
+                    color: Color(0xFFd0dce4),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: 0, left: 10, right: 0, bottom: 0),
                         ),
-                      ),
-                    ],
+                        Center(
+                          child: SizedBox(
+                            width: 110.0,
+                            height: 110.0,
+                            child: Image.asset(images),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                width: 300.0,
-                height: MediaQuery.of(context).size.height / 13,
-                child: Container(
-                  color: Colors.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 20, left: 20, right: 20, bottom: 10),
-                        child: Text(
-                          returnText,
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                SizedBox(
+                  width: 224.0,
+                  height: MediaQuery.of(context).size.height / 6,
+                  child: Container(
+                    color: Color(0xFF282c34),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: 15, left: 15, right: 0, bottom: 0),
+                          child: Text(
+                            equipment,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
+              ]),
+
               /////////////////////////////
               /// ////////////////////
               Padding(
                 padding:
                     EdgeInsets.only(top: 15, left: 0, right: 0, bottom: 15),
               ),
-              SizedBox(
-                width: 300.0,
-                height: MediaQuery.of(context).size.height / 12,
-                child: Container(
-                  color: Color(0xFF282c34),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 15, left: 15, right: 0, bottom: 0),
-                      ),
-                      SizedBox(
-                        width: 80.0,
-                        height: 80.0,
-                        child: Image.asset(images),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 20, left: 30, right: 0, bottom: 0),
-                        child: Text(
-                          equipment,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+              Row(children: [
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 0, left: 20, right: 0, bottom: 0),
+                ),
+                SizedBox(
+                  width: 130.0,
+                  height: MediaQuery.of(context).size.height / 6,
+                  child: Container(
+                    color: Color(0xFFd0dce4),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: 0, left: 10, right: 0, bottom: 0),
                         ),
-                      ),
-                    ],
+                        Center(
+                          child: SizedBox(
+                            width: 110.0,
+                            height: 110.0,
+                            child: Image.asset(images),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                width: 300.0,
-                height: MediaQuery.of(context).size.height / 13,
-                child: Container(
-                  color: Colors.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 20, left: 20, right: 20, bottom: 10),
-                        child: Text(
-                          returnText,
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                SizedBox(
+                  width: 224.0,
+                  height: MediaQuery.of(context).size.height / 6,
+                  child: Container(
+                    color: Color(0xFF282c34),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: 15, left: 15, right: 0, bottom: 0),
+                          child: Text(
+                            equipment,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
+              ]),
+
               /////////////////////////////
               /// ////////////////////
               Padding(
                 padding:
                     EdgeInsets.only(top: 15, left: 0, right: 0, bottom: 15),
               ),
-              SizedBox(
-                width: 300.0,
-                height: MediaQuery.of(context).size.height / 12,
-                child: Container(
-                  color: Color(0xFF282c34),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 15, left: 15, right: 0, bottom: 0),
-                      ),
-                      SizedBox(
-                        width: 80.0,
-                        height: 80.0,
-                        child: Image.asset(images),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 20, left: 30, right: 0, bottom: 0),
-                        child: Text(
-                          equipment,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
+              Row(children: [
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 0, left: 20, right: 0, bottom: 0),
+                ),
+                SizedBox(
+                  width: 130.0,
+                  height: MediaQuery.of(context).size.height / 6,
+                  child: Container(
+                    color: Color(0xFFd0dce4),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: 0, left: 10, right: 0, bottom: 0),
                         ),
-                      ),
-                    ],
+                        Center(
+                          child: SizedBox(
+                            width: 110.0,
+                            height: 110.0,
+                            child: Image.asset(images),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 ),
-              ),
-              SizedBox(
-                width: 300.0,
-                height: MediaQuery.of(context).size.height / 13,
-                child: Container(
-                  color: Colors.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 20, left: 20, right: 20, bottom: 10),
-                        child: Text(
-                          returnText,
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
+                SizedBox(
+                  width: 224.0,
+                  height: MediaQuery.of(context).size.height / 6,
+                  child: Container(
+                    color: Color(0xFF282c34),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: 15, left: 15, right: 0, bottom: 0),
+                          child: Text(
+                            equipment,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
-              ),
+              ]),
+
               /////////////////////////////
             ],
           ),
@@ -350,13 +331,15 @@ class _buttonState extends State<button> {
       padding: const EdgeInsets.all(0.5),
       child: ElevatedButton(
         onPressed: () {
-          setState(() {
-            colorNew = isCorrect ? Colors.green : Colors.red;
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content:
-                  isCorrect ? Text("Your Score is 1") : Text("Your Score is 0"),
-            ));
-          });
+          Navigator.pushNamed(context, '/second');
+
+          // setState(() {
+          //   colorNew = isCorrect ? Colors.green : Colors.red;
+          //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          //     content:
+          //         isCorrect ? Text("Your Score is 1") : Text("Your Score is 0"),
+          //   ));
+          // });
         },
         style: ElevatedButton.styleFrom(
           primary: colorNew,
