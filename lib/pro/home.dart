@@ -144,6 +144,24 @@ Widget buildRowTwo(context, returnText, data, images, equipment) => Container(
                             ),
                           ),
                         ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: 15, left: 78, right: 0, bottom: 0),
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: 85, left: 0, right: 0, bottom: 0),
+                            ),
+                            Expanded(
+                                child: buttonAdd(colorAdd: Color(0xFF01adb5))),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: 0, left: 0, right: 0, bottom: 10),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),
@@ -204,6 +222,24 @@ Widget buildRowTwo(context, returnText, data, images, equipment) => Container(
                             ),
                           ),
                         ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: 15, left: 78, right: 0, bottom: 0),
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: 85, left: 0, right: 0, bottom: 0),
+                            ),
+                            Expanded(
+                                child: buttonAdd(colorAdd: Color(0xFF01adb5))),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: 0, left: 0, right: 0, bottom: 10),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),
@@ -264,6 +300,24 @@ Widget buildRowTwo(context, returnText, data, images, equipment) => Container(
                             ),
                           ),
                         ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                              top: 15, left: 78, right: 0, bottom: 0),
+                        ),
+                        Column(
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: 85, left: 0, right: 0, bottom: 0),
+                            ),
+                            Expanded(
+                                child: buttonAdd(colorAdd: Color(0xFF01adb5))),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  top: 0, left: 0, right: 0, bottom: 10),
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),
@@ -354,6 +408,45 @@ class _buttonState extends State<button> {
             fontFamily: 'Prompt',
             fontSize: 20.0,
             fontWeight: FontWeight.w700,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class buttonAdd extends StatefulWidget {
+  final Color colorAdd;
+
+  const buttonAdd({super.key, required this.colorAdd});
+
+  @override
+  _buttonAddState createState() => _buttonAddState(colorAdd);
+}
+
+class _buttonAddState extends State<buttonAdd> {
+  late Color colorAdd;
+  _buttonAddState(this.colorAdd);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(0.5),
+      child: ElevatedButton(
+        onPressed: () {},
+        style: ElevatedButton.styleFrom(
+          primary: colorAdd,
+          minimumSize: Size(50, 30),
+        ),
+        child: Text(
+          "Add",
+          textDirection: TextDirection.ltr,
+          style: const TextStyle(
+            decoration: TextDecoration.none,
+            fontFamily: 'Prompt',
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
             color: Colors.white,
           ),
         ),
