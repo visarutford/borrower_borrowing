@@ -11,22 +11,14 @@ class MyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter layout demoooo',
-        initialRoute: '/',
-        // routes: {
-        //   '/': (context) => const button(
-        //         colorNew: Color(0xFF282c34),
-        //         textNew: "Profile",
-        //         isCorrect: false,
-        //       ),
-        //   // '/first': (context) => const Exercise2(),
-        //   '/second': (context) => const buttonProfileOne(
-        //         colorNew: Color(0xFF282c34),
-        //         textNew: "Home",
-        //         isCorrect: true,
-        //       ),
-        // },
-        home: choiceQuestion());
+      debugShowCheckedModeBanner: false,
+      title: 'Flutter layout demoooo',
+      home: choiceQuestion(),
+      // initialRoute: '/',
+      // routes: {
+      //   '/s': (context) => const choiceQuestion(),
+      //   '/second': (context) => const MyWidget(),
+      // },
+    );
   }
 }

@@ -31,13 +31,6 @@ class _MyAppProfileState extends State<MyAppProfile> {
     data = widget.info[widget.num]["data"];
     images = widget.info[widget.num]["images"];
     equipment = widget.info[widget.num]["equipment"];
-
-    if (widget.num > 1 && widget.num <= widget.info.length) {
-      previous = true;
-    }
-    if (widget.num < widget.info.length) {
-      nextPresident = MyAppProfile(num: widget.num + 1, info: widget.info);
-    }
   }
 
   @override
@@ -45,13 +38,47 @@ class _MyAppProfileState extends State<MyAppProfile> {
     final screenW = MediaQuery.of(context).size.width;
     debugPrint(screenW.toString());
     return Scaffold(
-        body: Column(
-      children: [
-        buildRowOne(qusetion),
-        buildRowTwo(context, returnText, data, images, equipment),
-        buildRowThree(context, screenW),
-      ],
-    ));
+      body: Column(
+        children: [
+          buildRowOne(qusetion),
+          buildRowTwo(context, returnText, data, images, equipment),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Color(0xFF282c34),
+        selectedFontSize: 18,
+        unselectedFontSize: 15,
+        unselectedItemColor: Colors.white,
+        iconSize: 30,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.account_balance,
+              color: Colors.white,
+            ),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.add_shopping_cart,
+              color: Colors.white,
+            ),
+            label: 'Order',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.account_circle,
+              color: Colors.white,
+            ),
+            label: 'Profile',
+          ),
+        ],
+        // currentIndex: _selectedIndex,
+        selectedItemColor: Colors.white,
+        // onTap: _onItemTapped,
+      ),
+    );
   }
 }
 
@@ -86,7 +113,7 @@ Widget buildRowOne(String qusetion) => Container(
 
 Widget buildRowTwo(context, returnText, data, images, equipment) => Container(
       color: Color(0xFFd0dce4), // Set background color here
-      height: 553.5,
+      height: 564,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,62 +133,10 @@ Widget buildRowTwo(context, returnText, data, images, equipment) => Container(
                 ),
               ),
               ////////////////////
-              SizedBox(
-                width: 300.0,
-                height: MediaQuery.of(context).size.height / 12,
-                child: Container(
-                  color: Color(0xFF282c34),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 15, left: 15, right: 0, bottom: 0),
-                      ),
-                      SizedBox(
-                        width: 80.0,
-                        height: 80.0,
-                        child: Image.asset(images),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 20, left: 30, right: 0, bottom: 0),
-                        child: Text(
-                          equipment,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 300.0,
-                height: MediaQuery.of(context).size.height / 13,
-                child: Container(
-                  color: Colors.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 20, left: 20, right: 20, bottom: 10),
-                        child: Text(
-                          returnText,
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              BoxBorrower(
+                imageBoxBor: images,
+                equipmentBoxBor: equipment,
+                returnBoxBor: returnText,
               ),
               /////////////////////////////
               /// ////////////////////
@@ -169,126 +144,23 @@ Widget buildRowTwo(context, returnText, data, images, equipment) => Container(
                 padding:
                     EdgeInsets.only(top: 15, left: 0, right: 0, bottom: 15),
               ),
-              SizedBox(
-                width: 300.0,
-                height: MediaQuery.of(context).size.height / 12,
-                child: Container(
-                  color: Color(0xFF282c34),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 15, left: 15, right: 0, bottom: 0),
-                      ),
-                      SizedBox(
-                        width: 80.0,
-                        height: 80.0,
-                        child: Image.asset(images),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 20, left: 30, right: 0, bottom: 0),
-                        child: Text(
-                          equipment,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+              BoxBorrower(
+                imageBoxBor: images,
+                equipmentBoxBor: equipment,
+                returnBoxBor: returnText,
               ),
-              SizedBox(
-                width: 300.0,
-                height: MediaQuery.of(context).size.height / 13,
-                child: Container(
-                  color: Colors.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 20, left: 20, right: 20, bottom: 10),
-                        child: Text(
-                          returnText,
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+
               /////////////////////////////
               /// ////////////////////
               Padding(
                 padding:
                     EdgeInsets.only(top: 15, left: 0, right: 0, bottom: 15),
               ),
-              SizedBox(
-                width: 300.0,
-                height: MediaQuery.of(context).size.height / 12,
-                child: Container(
-                  color: Color(0xFF282c34),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 15, left: 15, right: 0, bottom: 0),
-                      ),
-                      SizedBox(
-                        width: 80.0,
-                        height: 80.0,
-                        child: Image.asset(images),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 20, left: 30, right: 0, bottom: 0),
-                        child: Text(
-                          equipment,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: 300.0,
-                height: MediaQuery.of(context).size.height / 13,
-                child: Container(
-                  color: Colors.white,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            top: 20, left: 20, right: 20, bottom: 10),
-                        child: Text(
-                          returnText,
-                          style: TextStyle(
-                            color: Colors.red,
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+              BoxBorrower(
+                imageBoxBor: images,
+                equipmentBoxBor: equipment,
+                returnBoxBor: returnText,
+              )
               /////////////////////////////
             ],
           ),
@@ -296,87 +168,171 @@ Widget buildRowTwo(context, returnText, data, images, equipment) => Container(
       ),
     );
 
-Widget buildRowThree(context, screenW) => Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(children: [
-          Expanded(
-              child: buttonProfileOne(
-            colorNew: Color(0xFF282c34),
-            textNew: "Home",
-            isCorrect: true,
-          )),
-          Expanded(
-              child: buttonProfileOne(
-            colorNew: Color(0xFF282c34),
-            textNew: "Order",
-            isCorrect: false,
-          )),
-          Expanded(
-              child: buttonProfileOne(
-            colorNew: Color(0xFF282c34),
-            textNew: "Profile",
-            isCorrect: false,
-          )),
-        ]),
-      ],
-    );
-
-class buttonProfileOne extends StatefulWidget {
-  final Color colorNew;
-  final String textNew;
-  final bool isCorrect;
-
-  const buttonProfileOne(
+class BoxBorrower extends StatefulWidget {
+  final String imageBoxBor;
+  final String equipmentBoxBor;
+  final String returnBoxBor;
+  const BoxBorrower(
       {super.key,
-      required this.colorNew,
-      required this.textNew,
-      required this.isCorrect});
+      required this.imageBoxBor,
+      required this.equipmentBoxBor,
+      required this.returnBoxBor});
 
   @override
-  _buttonProfileOneState createState() => _buttonProfileOneState(colorNew, textNew, isCorrect);
+  State<BoxBorrower> createState() =>
+      _BoxBorrowerState(imageBoxBor, equipmentBoxBor, returnBoxBor);
 }
 
-class _buttonProfileOneState extends State<buttonProfileOne> {
-  late Color colorNew;
-  final String textNew;
-  final bool isCorrect;
-  _buttonProfileOneState(this.colorNew, this.textNew, this.isCorrect);
+class _BoxBorrowerState extends State<BoxBorrower> {
+  late String imageBoxBor;
+  late String equipmentBoxBor;
+  late String returnBoxBor;
+
+  _BoxBorrowerState(this.imageBoxBor, this.equipmentBoxBor, this.returnBoxBor);
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(0.5),
-      child: ElevatedButton(
-        onPressed: () => Navigator.of(context).pop(),
-        // onPressed: () {
-
-        //   setState(() {
-        //     colorNew = isCorrect ? Colors.green : Colors.red;
-        //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        //       content:
-        //           isCorrect ? Text("Your Score is 1") : Text("Your Score is 0"),
-        //     ));
-        //   });
-        // },
-        style: ElevatedButton.styleFrom(
-          primary: colorNew,
-          minimumSize: Size(MediaQuery.of(context).size.width / 4,
-              MediaQuery.of(context).size.height / 10),
-        ),
-        child: Text(
-          textNew,
-          textDirection: TextDirection.ltr,
-          style: const TextStyle(
-            decoration: TextDecoration.none,
-            fontFamily: 'Prompt',
-            fontSize: 20.0,
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
+    return Column(
+      children: [
+        SizedBox(
+          width: 300.0,
+          height: MediaQuery.of(context).size.height / 12,
+          child: Container(
+            color: Color(0xFF282c34),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 15, left: 15, right: 0, bottom: 0),
+                ),
+                SizedBox(
+                  width: 80.0,
+                  height: 80.0,
+                  child: Image.asset(imageBoxBor),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 20, left: 30, right: 0, bottom: 0),
+                  child: Text(
+                    equipmentBoxBor,
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
+        SizedBox(
+          width: 300.0,
+          height: MediaQuery.of(context).size.height / 13,
+          child: Container(
+            color: Colors.white,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 10),
+                  child: Text(
+                    returnBoxBor,
+                    style: TextStyle(
+                      color: Colors.red,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }
+
+
+
+
+////// ไม่ได้ใช้แล้ว
+///
+// Widget buildRowThree(context, screenW) => Column(
+//       mainAxisAlignment: MainAxisAlignment.spaceAround,
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Row(children: [
+//           Expanded(
+//               child: buttonProfileOne(
+//             colorNew: Color(0xFF282c34),
+//             textNew: "Home",
+//             isCorrect: true,
+//           )),
+//           Expanded(
+//               child: buttonProfileOne(
+//             colorNew: Color(0xFF282c34),
+//             textNew: "Order",
+//             isCorrect: false,
+//           )),
+//           Expanded(
+//               child: buttonProfileOne(
+//             colorNew: Color(0xFF282c34),
+//             textNew: "Profile",
+//             isCorrect: false,
+//           )),
+//         ]),
+//       ],
+//     );
+
+// class buttonProfileOne extends StatefulWidget {
+//   final Color colorNew;
+//   final String textNew;
+//   final bool isCorrect;
+
+//   const buttonProfileOne(
+//       {super.key,
+//       required this.colorNew,
+//       required this.textNew,
+//       required this.isCorrect});
+
+//   @override
+//   _buttonProfileOneState createState() =>
+//       _buttonProfileOneState(colorNew, textNew, isCorrect);
+// }
+
+// class _buttonProfileOneState extends State<buttonProfileOne> {
+//   late Color colorNew;
+//   final String textNew;
+//   final bool isCorrect;
+//   _buttonProfileOneState(this.colorNew, this.textNew, this.isCorrect);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.all(0.5),
+//       child: ElevatedButton(
+//         onPressed: () => Navigator.of(context).pop(),
+//         style: ElevatedButton.styleFrom(
+//           primary: colorNew,
+//           minimumSize: Size(MediaQuery.of(context).size.width / 4,
+//               MediaQuery.of(context).size.height / 10),
+//         ),
+//         child: Text(
+//           textNew,
+//           textDirection: TextDirection.ltr,
+//           style: const TextStyle(
+//             decoration: TextDecoration.none,
+//             fontFamily: 'Prompt',
+//             fontSize: 20.0,
+//             fontWeight: FontWeight.w700,
+//             color: Colors.white,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }

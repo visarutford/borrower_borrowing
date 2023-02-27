@@ -20,7 +20,7 @@ class _choiceQuestionState extends State<choiceQuestion> {
       "equipment": "Laptop",
       "data":
           "Intel(R) Core(TM) i5-7300HQ CPU @ 2.50GHz   2.50 GHz Ram 12.0 GB",
-      "images": "images/laptop.jpg",
+      "images": "images/laptop.png",
     },
     2: {
       "title": "Question 2",
@@ -29,7 +29,7 @@ class _choiceQuestionState extends State<choiceQuestion> {
       "equipment": "Ipad",
       "data":
           "Intel(R) Core(TM) i5-7300HQ CPU @ 2.50GHz   2.50 GHz Ram 12.0 GB",
-      "images": "images/ipad.jpg",
+      "images": "images/ipadNew.png",
     },
     3: {
       "title": "Question 3",
@@ -38,14 +38,14 @@ class _choiceQuestionState extends State<choiceQuestion> {
       "equipment": "HDMI",
       "data":
           "Intel(R) Core(TM) i5-7300HQ CPU @ 2.50GHz   2.50 GHz Ram 12.0 GB",
-      "images": "images/HDMI.jpg",
+      "images": "images/HDMI.png",
     }
   };
 
   @override
   Widget build(BuildContext context) {
-    // return MyAppTest(num: 1, info: prezInfo);
     // return MyAppProfile(num: 1, info: prezInfo);
+    // return MyAppTest(num: 1, info: prezInfo);
     return MyAppHome(num: 1, info: prezInfo);
   }
 }

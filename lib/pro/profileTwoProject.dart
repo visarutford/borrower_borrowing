@@ -29,13 +29,6 @@ class _MyAppTestState extends State<MyAppTest> {
     returnText = widget.info[widget.num]["returnText"];
     data = widget.info[widget.num]["data"];
     images = widget.info[widget.num]["images"];
-
-    if (widget.num > 1 && widget.num <= widget.info.length) {
-      previous = true;
-    }
-    if (widget.num < widget.info.length) {
-      nextPresident = MyAppTest(num: widget.num + 1, info: widget.info);
-    }
   }
 
   @override
@@ -43,33 +36,47 @@ class _MyAppTestState extends State<MyAppTest> {
     final screenW = MediaQuery.of(context).size.width;
     debugPrint(screenW.toString());
     return Scaffold(
-        body: Column(
-      children: [
-        buildRowOne(qusetion),
-        buildRowTwo(context, returnText, data, images),
-        buildRowThree(context, screenW),
-        // Expanded(
-        //     child: Row(
-        //         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //         children: [
-        //       Visibility(
-        //         visible: previous,
-        //         child: ElevatedButton(
-        //             onPressed: () => Navigator.of(context).pop(),
-        //             child: const Text("Previous")),
-        //       ),
-        //       Visibility(
-        //         visible: nextPresident != null,
-        //         child: ElevatedButton(
-        //             onPressed: () => Navigator.of(context).push(
-        //                 MaterialPageRoute(
-        //                     builder: (context) =>
-        //                         nextPresident ?? Container())),
-        //             child: const Text("Next")),
-        //       )
-        //     ]))
-      ],
-    ));
+      body: Column(
+        children: [
+          buildRowOne(qusetion),
+          buildRowTwo(context, returnText, data, images),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Color(0xFF282c34),
+        selectedFontSize: 18,
+        unselectedFontSize: 15,
+        unselectedItemColor: Colors.white,
+        iconSize: 30,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.account_balance,
+              color: Colors.white,
+            ),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.add_shopping_cart,
+              color: Colors.white,
+            ),
+            label: 'Order',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.account_circle,
+              color: Colors.white,
+            ),
+            label: 'Profile',
+          ),
+        ],
+        // currentIndex: _selectedIndex,
+        selectedItemColor: Colors.white,
+        // onTap: _onItemTapped,
+      ),
+    );
   }
 }
 
@@ -104,7 +111,7 @@ Widget buildRowOne(String qusetion) => Container(
 
 Widget buildRowTwo(context, returnText, data, images) => Container(
       color: Color(0xFFd0dce4), // Set background color here
-      height: 553.5,
+      height: 564,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,27 +123,12 @@ Widget buildRowTwo(context, returnText, data, images) => Container(
                 height: MediaQuery.of(context).size.height / 12,
                 child: Container(color: Color(0xFFd0dce4)),
               ),
-              // SizedBox(
-              //   width: 300.0,
-              //   height: MediaQuery.of(context).size.height / 12,
-              //   child: Container(
-              //     decoration: BoxDecoration(
-              //       color: Color(0xFF282c34),
-              //       borderRadius: BorderRadius.circular(10.0),
-              //       border: Border.all(
-              //         color: Color(0xFF282c34),
-              //         width: 1.0,
-              //       ),
-              //     ),
-              //   ),
-              // ),
               SizedBox(
                 width: 300.0,
                 height: MediaQuery.of(context).size.height / 12,
                 child: Container(
                   color: Color(0xFF282c34),
                   child: Row(
-                    // mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
@@ -163,7 +155,6 @@ Widget buildRowTwo(context, returnText, data, images) => Container(
                     ],
                   ),
                 ),
-                // child: Image.asset('images/picOne.jpg'),
               ),
               SizedBox(
                 width: 300.0,
@@ -171,7 +162,6 @@ Widget buildRowTwo(context, returnText, data, images) => Container(
                 child: Container(
                   color: Colors.white,
                   child: Column(
-                    // mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
@@ -208,85 +198,89 @@ Widget buildRowTwo(context, returnText, data, images) => Container(
       ),
     );
 
-Widget buildRowThree(context, screenW) => Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(children: [
-          Expanded(
-              child: button(
-            colorNew: Color(0xFF282c34),
-            textNew: "Home",
-            isCorrect: true,
-          )),
-          Expanded(
-              child: button(
-            colorNew: Color(0xFF282c34),
-            textNew: "Order",
-            isCorrect: false,
-          )),
-          Expanded(
-              child: button(
-            colorNew: Color(0xFF282c34),
-            textNew: "Profile",
-            isCorrect: false,
-          )),
-        ]),
-      ],
-    );
 
-class button extends StatefulWidget {
-  final Color colorNew;
-  final String textNew;
-  final bool isCorrect;
 
-  const button(
-      {super.key,
-      required this.colorNew,
-      required this.textNew,
-      required this.isCorrect});
+///// ไม่ได้ใช้
 
-  @override
-  _buttonState createState() => _buttonState(colorNew, textNew, isCorrect);
-}
+// Widget buildRowThree(context, screenW) => Column(
+//       mainAxisAlignment: MainAxisAlignment.spaceAround,
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Row(children: [
+//           Expanded(
+//               child: button(
+//             colorNew: Color(0xFF282c34),
+//             textNew: "Home",
+//             isCorrect: true,
+//           )),
+//           Expanded(
+//               child: button(
+//             colorNew: Color(0xFF282c34),
+//             textNew: "Order",
+//             isCorrect: false,
+//           )),
+//           Expanded(
+//               child: button(
+//             colorNew: Color(0xFF282c34),
+//             textNew: "Profile",
+//             isCorrect: false,
+//           )),
+//         ]),
+//       ],
+//     );
 
-class _buttonState extends State<button> {
-  late Color colorNew;
-  final String textNew;
-  final bool isCorrect;
-  _buttonState(this.colorNew, this.textNew, this.isCorrect);
+// class button extends StatefulWidget {
+//   final Color colorNew;
+//   final String textNew;
+//   final bool isCorrect;
 
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(0.5),
-      child: ElevatedButton(
-        onPressed: () {
-          setState(() {
-            colorNew = isCorrect ? Colors.green : Colors.red;
-            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content:
-                  isCorrect ? Text("Your Score is 1") : Text("Your Score is 0"),
-            ));
-          });
-        },
-        style: ElevatedButton.styleFrom(
-          primary: colorNew,
-          minimumSize: Size(MediaQuery.of(context).size.width / 4,
-              MediaQuery.of(context).size.height / 10),
-        ),
-        child: Text(
-          textNew,
-          textDirection: TextDirection.ltr,
-          style: const TextStyle(
-            decoration: TextDecoration.none,
-            fontFamily: 'Prompt',
-            fontSize: 20.0,
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
-          ),
-        ),
-      ),
-    );
-  }
-}
+//   const button(
+//       {super.key,
+//       required this.colorNew,
+//       required this.textNew,
+//       required this.isCorrect});
+
+//   @override
+//   _buttonState createState() => _buttonState(colorNew, textNew, isCorrect);
+// }
+
+// class _buttonState extends State<button> {
+//   late Color colorNew;
+//   final String textNew;
+//   final bool isCorrect;
+//   _buttonState(this.colorNew, this.textNew, this.isCorrect);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.all(0.5),
+//       child: ElevatedButton(
+//         onPressed: () {
+//           setState(() {
+//             colorNew = isCorrect ? Colors.green : Colors.red;
+//             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+//               content:
+//                   isCorrect ? Text("Your Score is 1") : Text("Your Score is 0"),
+//             ));
+//           });
+//         },
+//         style: ElevatedButton.styleFrom(
+//           primary: colorNew,
+//           minimumSize: Size(MediaQuery.of(context).size.width / 4,
+//               MediaQuery.of(context).size.height / 10),
+//         ),
+//         child: Text(
+//           textNew,
+//           textDirection: TextDirection.ltr,
+//           style: const TextStyle(
+//             decoration: TextDecoration.none,
+//             fontFamily: 'Prompt',
+//             fontSize: 20.0,
+//             fontWeight: FontWeight.w700,
+//             color: Colors.white,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
