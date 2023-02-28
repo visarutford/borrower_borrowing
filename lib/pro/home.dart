@@ -37,12 +37,15 @@ class _MyAppHomeState extends State<MyAppHome> {
   Widget build(BuildContext context) {
     final screenW = MediaQuery.of(context).size.width;
     debugPrint(screenW.toString());
-    return Column(
-      children: [
-        buildRowOne(qusetion),
-        buildRowTwo(context, returnText, data, images, equipment),
-        // buildRowThree(context, screenW),
-      ],
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Column(
+        children: [
+          buildRowOne(qusetion),
+          buildRowTwo(context, returnText, data, images, equipment),
+          // buildRowThree(context, screenW),
+        ],
+      ),
     );
   }
 }
@@ -75,57 +78,32 @@ Widget buildRowOne(String qusetion) => Container(
       ),
     );
 
-Widget buildRowTwo(context, returnText, data, images, equipment) => Container(
-      color: Colors.white, // Set background color here
-      height: 553.5,
-      child: Row(
-        // mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.start,
+Widget buildRowTwo(context, returnText, data, images, equipment) =>
+    Center(
+      child: Column(
         children: [
-          Column(
-            children: [
-              const Padding(
-                padding:
-                    EdgeInsets.only(top: 20, left: 30, right: 170, bottom: 20),
-              ),
-              boxHome(imagesBOX: images, equipmentBOX: equipment),
-
-              ///////////////////////
-              const Padding(
-                padding:
-                    EdgeInsets.only(top: 15, left: 0, right: 0, bottom: 15),
-              ),
-              const boxHome(
-                  imagesBOX: "images/ipadNew.png", equipmentBOX: "iPad    "),
-
-              /////////////////////////////
-              /// ////////////////////
-              const Padding(
-                padding:
-                    EdgeInsets.only(top: 15, left: 0, right: 0, bottom: 15),
-              ),
-              const boxHome(imagesBOX: "images/HDMI.png", equipmentBOX: "HDMI  ")
-
-              /////////////////////////////
-            ],
-          ),
+          boxHome(imagesBOX: images, equipmentBOX: equipment),
+          const boxHome(imagesBOX: "images/ipadNew.png", equipmentBOX: "iPad"),
+          const boxHome(imagesBOX: "images/HDMI.png", equipmentBOX: "HDMI  ")
+          /////////////////////////////
         ],
       ),
     );
 
+
 /// ปุ่ม Add
 class buttonAdd extends StatefulWidget {
   final Color colorAdd;
-
-  const buttonAdd({super.key, required this.colorAdd});
-
+  final String nameButton;
+  const buttonAdd({super.key, required this.colorAdd, required  this.nameButton});
   @override
-  _buttonAddState createState() => _buttonAddState(colorAdd);
+  _buttonAddState createState() => _buttonAddState(colorAdd,nameButton);
 }
 
 class _buttonAddState extends State<buttonAdd> {
   late Color colorAdd;
-  _buttonAddState(this.colorAdd);
+  late String nameButton;
+  _buttonAddState(this.colorAdd, this.nameButton);
 
   @override
   Widget build(BuildContext context) {
@@ -137,10 +115,10 @@ class _buttonAddState extends State<buttonAdd> {
           primary: colorAdd,
           minimumSize: Size(50, 30),
         ),
-        child: const Text(
-          "Add",
+        child:  Text(
+          nameButton,
           textDirection: TextDirection.ltr,
-          style: TextStyle(
+          style: const TextStyle(
             decoration: TextDecoration.none,
             fontFamily: 'Prompt',
             fontSize: 18.0,
@@ -171,74 +149,43 @@ class _boxHomeState extends State<boxHome> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
-      const Padding(
-        padding: EdgeInsets.only(top: 0, left: 20, right: 0, bottom: 0),
+    return Container(
+      margin: const EdgeInsets.only(left: 15, right: 15, top: 10),
+      decoration: BoxDecoration(
+        color: const Color(0xFF282c34),
+        border: Border.all(color: Colors.grey.shade400),
+        borderRadius: BorderRadius.circular(8.0),
       ),
-      SizedBox(
-        width: 130.0,
-        height: MediaQuery.of(context).size.height / 6,
-        child: Container(
-          color: Color(0xFFd0dce4),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                padding: EdgeInsets.only(top: 0, left: 10, right: 0, bottom: 0),
-              ),
-              Center(
-                child: SizedBox(
-                  width: 110.0,
-                  height: 110.0,
-                  child: Image.asset(imagesBOX),
-                ),
-              )
-            ],
-          ),
-        ),
-      ),
-      SizedBox(
-        width: 224.0,
-        height: MediaQuery.of(context).size.height / 6,
-        child: Container(
-          color: const Color(0xFF282c34),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.only(top: 15, left: 15, right: 0, bottom: 0),
-                child: Text(
-                  equipmentBOX,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+        child:  Row(
+          children: [
+            Container(
+              width: 170.0,
+              height: 130,
+              decoration: const BoxDecoration(
+                color: Color(0xFFd0dce4),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8.0),
+                  bottomLeft: Radius.circular(8.0),
                 ),
               ),
-              const Padding(
-                padding:
-                    EdgeInsets.only(top: 15, left: 75, right: 0, bottom: 0),
-              ),
-              Column(
-                children: const [
-                  Padding(
-                    padding:
-                        EdgeInsets.only(top: 85, left: 0, right: 0, bottom: 0),
-                  ),
-                  Expanded(child: buttonAdd(colorAdd: Color(0xFF01adb5))),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(top: 0, left: 0, right: 0, bottom: 10),
-                  ),
-                ],
-              )
-            ],
-          ),
+              child: Image.asset(imagesBOX),
+            ),Expanded(child: Container(
+                margin: const EdgeInsets.all(20),
+                child:Column(
+                  children: [
+                    Text(equipmentBOX, style: const TextStyle(color: Colors.white,
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,),),
+                    const buttonAdd(colorAdd: Colors.greenAccent,nameButton: "Add")
+                  ],
+                )
+            ))
+            
+
+      
+          ],
         ),
-      ),
-    ]);
+    );
   }
 }
 
