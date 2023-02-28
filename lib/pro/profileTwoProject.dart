@@ -40,8 +40,41 @@ class _MyAppTestState extends State<MyAppTest> {
         children: [
           buildRowOne(qusetion),
           buildRowTwo(context, returnText, data, images),
-          buildRowThree(context, screenW),
         ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Color(0xFF282c34),
+        selectedFontSize: 18,
+        unselectedFontSize: 15,
+        unselectedItemColor: Colors.white,
+        iconSize: 30,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.account_balance,
+              color: Colors.white,
+            ),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.add_shopping_cart,
+              color: Colors.white,
+            ),
+            label: 'Order',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.account_circle,
+              color: Colors.white,
+            ),
+            label: 'Profile',
+          ),
+        ],
+        // currentIndex: _selectedIndex,
+        selectedItemColor: Colors.white,
+        // onTap: _onItemTapped,
       ),
     );
   }
@@ -78,7 +111,7 @@ Widget buildRowOne(String qusetion) => Container(
 
 Widget buildRowTwo(context, returnText, data, images) => Container(
       color: Color(0xFFd0dce4), // Set background color here
-      height: 553.5,
+      height: 564,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -164,86 +197,6 @@ Widget buildRowTwo(context, returnText, data, images) => Container(
         ],
       ),
     );
-
-///////////////// ไม่ได้ใช้แล้ว ปุ่ม home order profile เดิม
-///
-Widget buildRowThree(context, screenW) => Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(children: [
-          Expanded(
-              child: button(
-            colorNew: Color(0xFF282c34),
-            textNew: "Home",
-            iconName: Icons.account_balance,
-          )),
-          Expanded(
-              child: button(
-            colorNew: Color(0xFF282c34),
-            textNew: "Order",
-            iconName: Icons.add_shopping_cart,
-          )),
-          Expanded(
-              child: button(
-            colorNew: Color(0xFF282c34),
-            textNew: "Profile",
-            iconName: Icons.account_circle,
-          )),
-        ]),
-      ],
-    );
-
-/// ปุ่มกดข้างล่าง home,order,profile
-class button extends StatefulWidget {
-  final Color colorNew;
-  final String textNew;
-  final IconData iconName;
-
-  const button(
-      {super.key,
-      required this.colorNew,
-      required this.textNew,
-      required this.iconName});
-
-  @override
-  _buttonState createState() => _buttonState(colorNew, textNew, iconName);
-}
-
-class _buttonState extends State<button> {
-  late Color colorNew;
-  final String textNew;
-  final IconData iconName;
-  _buttonState(this.colorNew, this.textNew, this.iconName);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(0.5),
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          primary: colorNew,
-          minimumSize: Size(MediaQuery.of(context).size.width / 4,
-              MediaQuery.of(context).size.height / 10),
-        ),
-        child: Column(
-          children: <Widget>[
-            Icon(
-              iconName,
-              color: Colors.white,
-              size: 30.0,
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(textNew, style: TextStyle(fontSize: 15)),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 
 

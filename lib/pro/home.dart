@@ -44,43 +44,43 @@ class _MyAppHomeState extends State<MyAppHome> {
         children: [
           buildRowOne(qusetion),
           buildRowTwo(context, returnText, data, images, equipment),
-          buildRowThree(context, screenW),
+          // buildRowThree(context, screenW),
         ],
       ),
-      // bottomNavigationBar: BottomNavigationBar(
-      //   type: BottomNavigationBarType.fixed,
-      //   backgroundColor: Color(0xFF282c34),
-      //   selectedFontSize: 18,
-      //   unselectedFontSize: 15,
-      //   unselectedItemColor: Colors.white,
-      //   iconSize: 30,
-      //   items: const [
-      //     BottomNavigationBarItem(
-      //       icon: Icon(
-      //         Icons.account_balance,
-      //         color: Colors.white,
-      //       ),
-      //       label: 'Home',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(
-      //         Icons.add_shopping_cart,
-      //         color: Colors.white,
-      //       ),
-      //       label: 'Order',
-      //     ),
-      //     BottomNavigationBarItem(
-      //       icon: Icon(
-      //         Icons.account_circle,
-      //         color: Colors.white,
-      //       ),
-      //       label: 'Profile',
-      //     ),
-      //   ],
-      //   // currentIndex: _selectedIndex,
-      //   selectedItemColor: Colors.white,
-      //   // onTap: _onItemTapped,
-      // ),
+      bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
+        backgroundColor: Color(0xFF282c34),
+        selectedFontSize: 18,
+        unselectedFontSize: 15,
+        unselectedItemColor: Colors.white,
+        iconSize: 30,
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.account_balance,
+              color: Colors.white,
+            ),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.add_shopping_cart,
+              color: Colors.white,
+            ),
+            label: 'Order',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.account_circle,
+              color: Colors.white,
+            ),
+            label: 'Profile',
+          ),
+        ],
+        // currentIndex: _selectedIndex,
+        selectedItemColor: Colors.white,
+        // onTap: _onItemTapped,
+      ),
     );
   }
 }
@@ -149,86 +149,6 @@ Widget buildRowTwo(context, returnText, data, images, equipment) => Container(
         ],
       ),
     );
-
-///////////////// ไม่ได้ใช้แล้ว ปุ่ม home order profile เดิม
-///
-Widget buildRowThree(context, screenW) => Column(
-      mainAxisAlignment: MainAxisAlignment.spaceAround,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Row(children: [
-          Expanded(
-              child: button(
-            colorNew: Color(0xFF282c34),
-            textNew: "Home",
-            iconName: Icons.account_balance,
-          )),
-          Expanded(
-              child: button(
-            colorNew: Color(0xFF282c34),
-            textNew: "Order",
-            iconName: Icons.add_shopping_cart,
-          )),
-          Expanded(
-              child: button(
-            colorNew: Color(0xFF282c34),
-            textNew: "Profile",
-            iconName: Icons.account_circle,
-          )),
-        ]),
-      ],
-    );
-
-/// ปุ่มกดข้างล่าง home,order,profile
-class button extends StatefulWidget {
-  final Color colorNew;
-  final String textNew;
-  final IconData iconName;
-
-  const button(
-      {super.key,
-      required this.colorNew,
-      required this.textNew,
-      required this.iconName});
-
-  @override
-  _buttonState createState() => _buttonState(colorNew, textNew, iconName);
-}
-
-class _buttonState extends State<button> {
-  late Color colorNew;
-  final String textNew;
-  final IconData iconName;
-  _buttonState(this.colorNew, this.textNew, this.iconName);
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(0.5),
-      child: ElevatedButton(
-        onPressed: () {},
-        style: ElevatedButton.styleFrom(
-          primary: colorNew,
-          minimumSize: Size(MediaQuery.of(context).size.width / 4,
-              MediaQuery.of(context).size.height / 10),
-        ),
-        child: Column(
-          children: <Widget>[
-            Icon(
-              iconName,
-              color: Colors.white,
-              size: 30.0,
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(textNew, style: TextStyle(fontSize: 15)),
-          ],
-        ),
-      ),
-    );
-  }
-}
 
 /// ปุ่ม Add
 class buttonAdd extends StatefulWidget {
@@ -358,3 +278,93 @@ class _boxHomeState extends State<boxHome> {
     ]);
   }
 }
+
+
+
+///////////////// ไม่ได้ใช้แล้ว ปุ่ม home order profile เดิม
+///
+// Widget buildRowThree(context, screenW) => Column(
+//       mainAxisAlignment: MainAxisAlignment.spaceAround,
+//       crossAxisAlignment: CrossAxisAlignment.start,
+//       children: [
+//         Row(children: [
+//           Expanded(
+//               child: button(
+//             colorNew: Color(0xFF282c34),
+//             textNew: "Home",
+//             nextPageHome: "MyAppProfile",
+//           )),
+//           Expanded(
+//               child: button(
+//             colorNew: Color(0xFF282c34),
+//             textNew: "Order",
+//             nextPageHome: "MyAppProfile",
+//           )),
+//           Expanded(
+//               child: button(
+//             colorNew: Color(0xFF282c34),
+//             textNew: "Profile",
+//             nextPageHome: "MyAppProfile",
+//           )),
+//         ]),
+//       ],
+//     );
+
+// /// ปุ่มกดข้างล่าง home,order,profile
+// class button extends StatefulWidget {
+//   final Color colorNew;
+//   final String textNew;
+//   final String nextPageHome;
+
+//   const button(
+//       {super.key,
+//       required this.colorNew,
+//       required this.textNew,
+//       required this.nextPageHome});
+
+//   @override
+//   _buttonState createState() => _buttonState(colorNew, textNew, nextPageHome);
+// }
+
+// class _buttonState extends State<button> {
+//   late Color colorNew;
+//   final String textNew;
+//   final String nextPageHome;
+//   _buttonState(this.colorNew, this.textNew, this.nextPageHome);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Padding(
+//       padding: const EdgeInsets.all(0.5),
+//       child: ElevatedButton(
+//         onPressed: () {
+//           Navigator.pushNamed(context, '/second');
+
+//           // setState(() {
+//           //   colorNew = isCorrect ? Colors.green : Colors.red;
+//           //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+//           //     content:
+//           //         isCorrect ? Text("Your Score is 1") : Text("Your Score is 0"),
+//           //   ));
+//           // });
+//         },
+//         style: ElevatedButton.styleFrom(
+//           primary: colorNew,
+//           minimumSize: Size(MediaQuery.of(context).size.width / 4,
+//               MediaQuery.of(context).size.height / 10),
+//         ),
+//         child: Text(
+//           textNew,
+//           textDirection: TextDirection.ltr,
+//           style: const TextStyle(
+//             decoration: TextDecoration.none,
+//             fontFamily: 'Prompt',
+//             fontSize: 20.0,
+//             fontWeight: FontWeight.w700,
+//             color: Colors.white,
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
