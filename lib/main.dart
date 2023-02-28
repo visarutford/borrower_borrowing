@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'pro/choice.dart';
 import 'pro/home.dart';
-import 'pro/profileOne.dart';
+
 
 void main() => runApp(MyWidget());
 
@@ -14,11 +14,7 @@ class MyWidget extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter layout demoooo',
       home: choiceQuestion(),
-      // initialRoute: '/',
-      // routes: {
-      //   '/s': (context) => const choiceQuestion(),
-      //   '/second': (context) => const MyWidget(),
-      // },
+
     );
   }
 }

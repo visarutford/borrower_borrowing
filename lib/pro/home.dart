@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'profileOne.dart';
+import 'order.dart';
 
 class MyAppHome extends StatefulWidget {
   const MyAppHome({Key? key, required this.num, required this.info})
       : super(key: key);
 
   final int num;
-
   final Map<dynamic, dynamic> info;
-
   @override
   State<MyAppHome> createState() => _MyAppHomeState();
 }
@@ -20,7 +18,7 @@ class _MyAppHomeState extends State<MyAppHome> {
   late String data;
   late String images;
   late String equipment;
-
+  int currentIndex = 0;
   bool previous = false;
   Widget? nextPresident;
 
@@ -39,54 +37,19 @@ class _MyAppHomeState extends State<MyAppHome> {
   Widget build(BuildContext context) {
     final screenW = MediaQuery.of(context).size.width;
     debugPrint(screenW.toString());
-    return Scaffold(
-      body: Column(
-        children: [
-          buildRowOne(qusetion),
-          buildRowTwo(context, returnText, data, images, equipment),
-          // buildRowThree(context, screenW),
-        ],
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Color(0xFF282c34),
-        selectedFontSize: 18,
-        unselectedFontSize: 15,
-        unselectedItemColor: Colors.white,
-        iconSize: 30,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.account_balance,
-              color: Colors.white,
-            ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.add_shopping_cart,
-              color: Colors.white,
-            ),
-            label: 'Order',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.account_circle,
-              color: Colors.white,
-            ),
-            label: 'Profile',
-          ),
-        ],
-        // currentIndex: _selectedIndex,
-        selectedItemColor: Colors.white,
-        // onTap: _onItemTapped,
-      ),
+    return Column(
+      children: [
+        buildRowOne(qusetion),
+        buildRowTwo(context, returnText, data, images, equipment),
+        // buildRowThree(context, screenW),
+      ],
     );
   }
 }
 
+
 Widget buildRowOne(String qusetion) => Container(
-      color: Color(0xFF282c34), // Set background color here
+      color: const Color(0xFF282c34), // Set background color here
       height: 150,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -96,9 +59,9 @@ Widget buildRowOne(String qusetion) => Container(
           Expanded(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+              children: const [
                 Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
+                  padding: EdgeInsets.only(bottom: 20),
                 ),
                 Text('Home',
                     style: TextStyle(
@@ -121,27 +84,27 @@ Widget buildRowTwo(context, returnText, data, images, equipment) => Container(
         children: [
           Column(
             children: [
-              Padding(
+              const Padding(
                 padding:
                     EdgeInsets.only(top: 20, left: 30, right: 170, bottom: 20),
               ),
               boxHome(imagesBOX: images, equipmentBOX: equipment),
 
               ///////////////////////
-              Padding(
+              const Padding(
                 padding:
                     EdgeInsets.only(top: 15, left: 0, right: 0, bottom: 15),
               ),
-              boxHome(
+              const boxHome(
                   imagesBOX: "images/ipadNew.png", equipmentBOX: "iPad    "),
 
               /////////////////////////////
               /// ////////////////////
-              Padding(
+              const Padding(
                 padding:
                     EdgeInsets.only(top: 15, left: 0, right: 0, bottom: 15),
               ),
-              boxHome(imagesBOX: "images/HDMI.png", equipmentBOX: "HDMI  ")
+              const boxHome(imagesBOX: "images/HDMI.png", equipmentBOX: "HDMI  ")
 
               /////////////////////////////
             ],
@@ -174,10 +137,10 @@ class _buttonAddState extends State<buttonAdd> {
           primary: colorAdd,
           minimumSize: Size(50, 30),
         ),
-        child: Text(
+        child: const Text(
           "Add",
           textDirection: TextDirection.ltr,
-          style: const TextStyle(
+          style: TextStyle(
             decoration: TextDecoration.none,
             fontFamily: 'Prompt',
             fontSize: 18.0,
@@ -209,7 +172,7 @@ class _boxHomeState extends State<boxHome> {
   @override
   Widget build(BuildContext context) {
     return Row(children: [
-      Padding(
+      const Padding(
         padding: EdgeInsets.only(top: 0, left: 20, right: 0, bottom: 0),
       ),
       SizedBox(
@@ -220,7 +183,7 @@ class _boxHomeState extends State<boxHome> {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(top: 0, left: 10, right: 0, bottom: 0),
               ),
               Center(
@@ -238,28 +201,28 @@ class _boxHomeState extends State<boxHome> {
         width: 224.0,
         height: MediaQuery.of(context).size.height / 6,
         child: Container(
-          color: Color(0xFF282c34),
+          color: const Color(0xFF282c34),
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
                 padding:
-                    EdgeInsets.only(top: 15, left: 15, right: 0, bottom: 0),
+                    const EdgeInsets.only(top: 15, left: 15, right: 0, bottom: 0),
                 child: Text(
                   equipmentBOX,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.white,
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
-              Padding(
+              const Padding(
                 padding:
                     EdgeInsets.only(top: 15, left: 75, right: 0, bottom: 0),
               ),
               Column(
-                children: [
+                children: const [
                   Padding(
                     padding:
                         EdgeInsets.only(top: 85, left: 0, right: 0, bottom: 0),

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 class MyAppProfile extends StatefulWidget {
   const MyAppProfile({Key? key, required this.num, required this.info})
       : super(key: key);
-
   final int num;
   final Map<dynamic, dynamic> info;
 
@@ -38,52 +37,20 @@ class _MyAppProfileState extends State<MyAppProfile> {
     final screenW = MediaQuery.of(context).size.width;
     debugPrint(screenW.toString());
     return Scaffold(
+      backgroundColor: const Color(0xFFd0dce4),
       body: Column(
         children: [
           buildRowOne(qusetion),
           buildRowTwo(context, returnText, data, images, equipment),
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        type: BottomNavigationBarType.fixed,
-        backgroundColor: Color(0xFF282c34),
-        selectedFontSize: 18,
-        unselectedFontSize: 15,
-        unselectedItemColor: Colors.white,
-        iconSize: 30,
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.account_balance,
-              color: Colors.white,
-            ),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.add_shopping_cart,
-              color: Colors.white,
-            ),
-            label: 'Order',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.account_circle,
-              color: Colors.white,
-            ),
-            label: 'Profile',
-          ),
-        ],
-        // currentIndex: _selectedIndex,
-        selectedItemColor: Colors.white,
-        // onTap: _onItemTapped,
-      ),
     );
   }
 }
 
 Widget buildRowOne(String qusetion) => Container(
-      color: Color(0xFF282c34), // Set background color here
+     color: const Color(0xFF282c34),
+       // Set background color here
       height: 150,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -94,16 +61,16 @@ Widget buildRowOne(String qusetion) => Container(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
+                const Padding(
+                  padding: EdgeInsets.only(bottom: 20),
                 ),
-                Text('Profile',
+                const Text('Profile',
                     style: TextStyle(
                         fontSize: 45,
                         color: Colors.white,
                         fontWeight: FontWeight.w700)),
                 Text(qusetion,
-                    style: TextStyle(fontSize: 20, color: Colors.white)),
+                    style: const TextStyle(fontSize: 20, color: Colors.white)),
               ],
             ),
           ),
@@ -112,7 +79,7 @@ Widget buildRowOne(String qusetion) => Container(
     );
 
 Widget buildRowTwo(context, returnText, data, images, equipment) => Container(
-      color: Color(0xFFd0dce4), // Set background color here
+      color: Color(0xFFd0dce4), // Set background color
       height: 564,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
