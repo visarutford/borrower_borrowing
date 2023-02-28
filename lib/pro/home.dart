@@ -169,20 +169,41 @@ class _boxHomeState extends State<boxHome> {
                 ),
               ),
               child: Image.asset(imagesBOX),
-            ),Expanded(child: Container(
-                margin: const EdgeInsets.all(20),
-                child:Column(
+            ),
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.all(15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(equipmentBOX, style: const TextStyle(color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,),),
-                    const buttonAdd(colorAdd: Colors.greenAccent,nameButton: "Add")
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          equipmentBOX,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: 25),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        const buttonAdd(
+                          colorAdd: Colors.green,
+                          nameButton: "Add",
+                        ),
+                      ],
+                    ),
                   ],
-                )
-            ))
-            
-
-      
+                ),
+              ),
+            ),
           ],
         ),
     );
