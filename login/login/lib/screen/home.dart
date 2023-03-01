@@ -13,8 +13,13 @@ class HomeScreen extends StatelessWidget {
           //SingleChildScrollView = ไม่ให้เกิด btn over flow
           child: Column(
             children: [
+              SizedBox(
+                height: 50,
+              ),
               /*------------- image -------------*/
-              Image.asset("images/addit.png"),
+              Image.asset(
+                "images/logo.png",
+              ),
               /*------------- image -------------*/
 
               /*------------- เว้นระยะ -------------*/
@@ -23,12 +28,25 @@ class HomeScreen extends StatelessWidget {
               ),
               /*------------- เว้นระยะ -------------*/
 
+              /*------------- Btn เข้าสู้ระบบ -------------*/
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton.icon(
+                    icon: Icon(Icons.login),
+                    label: Text("Login", style: TextStyle(fontSize: 20)),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) {
+                        return loginScreen();
+                      }));
+                    }),
+              ),
               /*------------- Btn สร้างบัญชีผู้ใช้ -------------*/
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton.icon(
                     icon: Icon(Icons.add),
-                    label: Text("Regidter", style: TextStyle(fontSize: 20)),
+                    label: Text("Register", style: TextStyle(fontSize: 20)),
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (context) {
@@ -37,21 +55,6 @@ class HomeScreen extends StatelessWidget {
                     }),
               ),
               /*------------- Btn สร้างบัญชีผู้ใช้ -------------*/
-
-              /*------------- Btn เข้าสู้ระบบ -------------*/
-              SizedBox(
-                width: double.infinity,
-                child: ElevatedButton.icon(
-                    icon: Icon(Icons.login),
-                    label: Text("login", style: TextStyle(fontSize: 20)),
-                    onPressed: () {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) {
-                        return loginScreen();
-                      }));
-                    }),
-              ),
-              /*------------- Btn เข้าสู้ระบบ -------------*/
             ],
           ),
         ),

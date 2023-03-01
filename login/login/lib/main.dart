@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:login/screen/home.dart';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
@@ -18,11 +17,25 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final Color customColor = Color(0xFF282c34);
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          // is not restarted.
-          primarySwatch: Colors.blue,
+          primarySwatch: MaterialColor(
+            customColor.value,
+            <int, Color>{
+              50: customColor,
+              100: customColor,
+              200: customColor,
+              300: customColor,
+              400: customColor,
+              500: customColor,
+              600: customColor,
+              700: customColor,
+              800: customColor,
+              900: customColor,
+            },
+          ),
         ),
         home: const HomeScreen());
   }

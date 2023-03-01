@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'home.dart';
 class Header extends StatelessWidget {
   final String text;
   const Header({super.key, required this.text});
@@ -78,16 +78,35 @@ class _MyOrderState extends State<MyOrder> {
       body: Column(
         children: [
          const Header(text: "Order"),
-          SizedBox(height: 10,),
-          BoxBorrower(
-            imageBoxBor: "images/ipadNew.png",
-            equipmentBoxBor: "iPad",
-            returnBoxBor: returnText,
-          ),SizedBox(height: 10,),
-          BoxBorrower(
-            imageBoxBor: images,
-            equipmentBoxBor: equipment,
-            returnBoxBor: returnText,
+          SizedBox(height: 15),
+
+          Container(
+            padding: const EdgeInsets.only(left: 5,right: 5,top: 5, bottom: 10),
+                  decoration:const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8.0),
+                  topRight: Radius.circular(8.0),
+                  bottomLeft: Radius.circular(8.0),
+                    bottomRight: Radius.circular(8.0)
+          ),
+              color: Colors.white70
+            ),child: Column(
+            children: [BoxBorrower(
+              imageBoxBor: "images/HDMI.png",
+              equipmentBoxBor: "HDMI",
+              returnBoxBor: returnText,
+            ),
+              BoxBorrower(
+                imageBoxBor: "images/ipadNew.png",
+                equipmentBoxBor: "iPad",
+                returnBoxBor: returnText,
+              ),
+              BoxBorrower(imageBoxBor: "images/laptop.png", equipmentBoxBor: "Laptop", returnBoxBor: returnText),
+
+              buttonAdd(colorAdd: Colors.blueAccent, nameButton: "Confirm")
+            ],
+
+          ),
           )
 
 
@@ -141,44 +160,41 @@ class _BoxBorrowerState extends State<BoxBorrower> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          width: 370.0,
-          height: MediaQuery.of(context).size.height / 12,
-          child: Container(
-            color: Color(0xFF282c34),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding:
-                  EdgeInsets.only(top: 15, left: 15, right: 0, bottom: 0),
-                ),
-                SizedBox(
-                  width: 80.0,
-                  height: 80.0,
-                  child: Image.asset(imageBoxBor),
-                ),
-                Padding(
-                  padding:
-                  EdgeInsets.only(top: 20, left: 30, right: 0, bottom: 0),
-                  child: Text(
-                    equipmentBoxBor,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),Spacer(),Padding(padding:
-                EdgeInsets.only(top: 20,left: 130),
-                child: Icon(Icons.delete_forever_outlined,color: Colors.red,size: 30,),)
-              ],
+    return Container(
+      margin: const EdgeInsets.only(left: 15, right: 15, top: 10),
+      decoration: BoxDecoration(
+        color: const Color(0xFF282c34),
+        border: Border.all(color: Colors.grey.shade400),
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child:  Row(
+        children: [
+          Container(
+            width: 170.0,
+            height: 85,
+            decoration: const BoxDecoration(
+              color: Color(0xFF282c34),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(8.0),
+                bottomLeft: Radius.circular(8.0),
+              ),
             ),
-          ),
-        ),
-      ],
+            child: Image.asset(imageBoxBor),
+          ),Expanded(child: Container(
+              margin: const EdgeInsets.all(20),
+              child:Row(
+                children: [
+                  Text(equipmentBoxBor, style: const TextStyle(color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,),),
+                  const Spacer(),
+                  const Icon(Icons.delete_forever, color: Colors.red,)
+
+                ],
+              )
+          ))
+        ],
+      ),
     );
   }
 }

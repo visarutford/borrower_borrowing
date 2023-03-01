@@ -99,18 +99,22 @@ class _registerScreenState extends State<registerScreen> {
                                   await FirebaseAuth.instance
                                       .createUserWithEmailAndPassword(
                                           email: profile.email!,
-                                          password: profile.password!);
-                                  formkey.currentState?.reset();
-                                  /*---------- ส่งไปหน้า HomeScreen() -------------*/
-                                  // ignore: use_build_context_synchronously
-                                  Navigator.push(context,
-                                      MaterialPageRoute(builder: ((context) {
-                                    return const HomeScreen();
-                                  })));
+                                          password: profile.password!)
+                                      .then((value) {
+                                    formkey.currentState?.reset();
+                                    Fluttertoast.showToast(
+                                        msg: "Account created successfully",
+                                        gravity: ToastGravity.CENTER);
+                                    /*---------- ส่งไปหน้า HomeScreen() -------------*/
+                                    // ignore: use_build_context_synchronously
+                                    Navigator.push(context,
+                                        MaterialPageRoute(builder: ((context) {
+                                      return const HomeScreen();
+                                    })));
+                                  });
+
                                   /*---------- ทำการ check error -------------*/
-                                  Fluttertoast.showToast(
-                                      msg: "Account created successfully",
-                                      gravity: ToastGravity.CENTER);
+
                                 } on FirebaseAuthException catch (e) {
                                   //print(e.message);
                                   //print(e.code);

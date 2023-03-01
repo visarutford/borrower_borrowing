@@ -88,21 +88,23 @@ Widget buildRowOne(String qusetion) => Container(
         crossAxisAlignment: CrossAxisAlignment.baseline,
         textBaseline: TextBaseline.alphabetic,
         children: [
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 20),
-                ),
-                Text('Profile',
-                    style: TextStyle(
-                        fontSize: 45,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700)),
-                Text(qusetion,
-                    style: TextStyle(fontSize: 20, color: Colors.white)),
-              ],
+          SingleChildScrollView(
+            child: Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                  ),
+                  Text('Profile',
+                      style: TextStyle(
+                          fontSize: 45,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700)),
+                  Text(qusetion,
+                      style: TextStyle(fontSize: 20, color: Colors.white)),
+                ],
+              ),
             ),
           ),
         ],

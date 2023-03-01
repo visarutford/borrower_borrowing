@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:login/pro/adminBorrowing.dart';
+import 'adminRequest.dart';
 import 'order.dart';
 import 'profileOne.dart';
 import 'home.dart';
 
-class choiceQuestion extends StatefulWidget {
-  const choiceQuestion({super.key});
+class adminHomePage extends StatefulWidget {
+  const adminHomePage({super.key});
 
   @override
-  State<choiceQuestion> createState() => _choiceQuestionState();
+  State<adminHomePage> createState() => _adminHomePageState();
 }
 
-class _choiceQuestionState extends State<choiceQuestion> {
+class _adminHomePageState extends State<adminHomePage> {
   int currentIndex = 0;
 
   var prezInfo = {
@@ -45,11 +47,7 @@ class _choiceQuestionState extends State<choiceQuestion> {
 
   @override
   Widget build(BuildContext context) {
-    final screens = [
-      MyAppHome(num: 1, info: prezInfo),
-      MyOrder(num: 1, info: prezInfo),
-      MyAppProfile(num: 1, info: prezInfo)
-    ];
+    final screens = [AdminPage(), AdminBorrowing()];
     return Scaffold(
         body: screens[currentIndex],
         bottomNavigationBar: BottomNavigationBar(
@@ -64,25 +62,18 @@ class _choiceQuestionState extends State<choiceQuestion> {
           items: const [
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.account_balance,
+                Icons.approval,
                 color: Colors.white,
               ),
-              label: 'Home',
+              label: 'Request',
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.add_shopping_cart,
+                Icons.calendar_month,
                 color: Colors.white,
               ),
-              label: 'Order',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.account_circle,
-                color: Colors.white,
-              ),
-              label: 'Profile',
-            ),
+              label: 'Borrowing',
+            )
           ],
           // currentIndex: _selectedIndex,
           selectedItemColor: Colors.white,
