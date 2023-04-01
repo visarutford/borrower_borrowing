@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:login/screen/home.dart';
 
 class MyAppProfile extends StatefulWidget {
   const MyAppProfile({Key? key, required this.num, required this.info})
@@ -40,7 +43,7 @@ class _MyAppProfileState extends State<MyAppProfile> {
       backgroundColor: const Color(0xFFd0dce4),
       body: Column(
         children: [
-          buildRowOne(qusetion),
+          buildRowOne(qusetion, context),
           buildRowTwo(context, returnText, data, images, equipment),
         ],
       ),
@@ -48,88 +51,112 @@ class _MyAppProfileState extends State<MyAppProfile> {
   }
 }
 
-Widget buildRowOne(String qusetion) => Container(
-     color: const Color(0xFF282c34),
-       // Set background color here
-      height: 150,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.baseline,
-        textBaseline: TextBaseline.alphabetic,
-        children: [
-          Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Padding(
-                  padding: EdgeInsets.only(bottom: 20),
+Widget buildRowOne(String qusetion, context) {
+  return Container(
+    color: const Color(0xFF282c34),
+    // Set background color here
+    height: 170,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      crossAxisAlignment: CrossAxisAlignment.baseline,
+      textBaseline: TextBaseline.alphabetic,
+      children: [
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            // ignore: prefer_const_literals_to_create_immutables
+            children: [
+              const Padding(
+                padding: EdgeInsets.only(bottom: 20),
+              ),
+
+              /*------------ text Profile -----------------*/
+              const Text('Profile',
+                  style: TextStyle(
+                      fontSize: 45,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700)),
+
+              /*------------ text email -----------------*/
+              Text(
+                FirebaseAuth.instance.currentUser!.email!,
+                style: TextStyle(fontSize: 18, color: Colors.white),
+              ),
+
+              /*------------ btn Logout -----------------*/
+              ElevatedButton(
+                child: const Text("Logout"),
+                onPressed: () {
+                  FirebaseAuth.instance.signOut().then((value) {
+                    Navigator.pushReplacement(context,
+                        MaterialPageRoute(builder: ((context) {
+                      return const HomeScreen();
+                    })));
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  primary: Color.fromRGBO(255, 0, 0, 1),
+                  minimumSize: Size(50, 30),
                 ),
-                const Text('Profile',
-                    style: TextStyle(
-                        fontSize: 45,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700)),
-                Text(qusetion,
-                    style: const TextStyle(fontSize: 20, color: Colors.white)),
-              ],
-            ),
+              )
+            ],
           ),
-        ],
-      ),
-    );
+        ),
+      ],
+    ),
+  );
+}
 
 Widget buildRowTwo(context, returnText, data, images, equipment) => Container(
       color: Color(0xFFd0dce4), // Set background color
-      height: 564,
+      height: 425,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Column(
-            children: [
-              Padding(
-                padding:
-                    EdgeInsets.only(top: 20, left: 0, right: 170, bottom: 20),
-                child: Text(
-                  "Borrowed items",
-                  style: TextStyle(
-                    color: Color(0xFF282c34),
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+          SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 20, left: 0, right: 170, bottom: 20),
+                  child: Text(
+                    "Borrowed items",
+                    style: TextStyle(
+                      color: Color(0xFF282c34),
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
-              ),
-              ////////////////////
-              BoxBorrower(
-                imageBoxBor: images,
-                equipmentBoxBor: equipment,
-                returnBoxBor: returnText,
-              ),
-              /////////////////////////////
-              /// ////////////////////
-              Padding(
-                padding:
-                    EdgeInsets.only(top: 15, left: 0, right: 0, bottom: 15),
-              ),
-              BoxBorrower(
-                imageBoxBor: images,
-                equipmentBoxBor: equipment,
-                returnBoxBor: returnText,
-              ),
+                ////////////////////
+                BoxBorrower(
+                  imageBoxBor: images,
+                  equipmentBoxBor: equipment,
+                  returnBoxBor: returnText,
+                ),
+                /////////////////////////////
+                /// ////////////////////
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 15, left: 0, right: 0, bottom: 15),
+                ),
+                BoxBorrower(
+                  imageBoxBor: images,
+                  equipmentBoxBor: equipment,
+                  returnBoxBor: returnText,
+                ),
 
-              /////////////////////////////
-              /// ////////////////////
-              Padding(
-                padding:
-                    EdgeInsets.only(top: 15, left: 0, right: 0, bottom: 15),
-              ),
-              BoxBorrower(
-                imageBoxBor: images,
-                equipmentBoxBor: equipment,
-                returnBoxBor: returnText,
-              )
-              /////////////////////////////
-            ],
+                /////////////////////////////
+                /// ////////////////////
+                Padding(
+                  padding:
+                      EdgeInsets.only(top: 15, left: 0, right: 0, bottom: 15),
+                ),
+
+                /////////////////////////////
+              ],
+            ),
           ),
         ],
       ),
@@ -222,6 +249,36 @@ class _BoxBorrowerState extends State<BoxBorrower> {
     );
   }
 }
+
+// class curentUser extends StatelessWidget {
+//   final auth = FirebaseAuth.instance;
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       body: SingleChildScrollView(
+//         child: Row(
+//           children: [
+//             Text(
+//               FirebaseAuth.instance.currentUser!.email!,
+//               style: TextStyle(fontSize: 18, color: Colors.white),
+//             ),
+//             ElevatedButton(
+//               child: Text("Logout"),
+//               onPressed: () {
+//                 FirebaseAuth.instance.signOut().then((value) {
+//                   Navigator.pushReplacement(context,
+//                       MaterialPageRoute(builder: ((context) {
+//                     return const HomeScreen();
+//                   })));
+//                 });
+//               },
+//             )
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 
 

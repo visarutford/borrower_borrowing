@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'order.dart';
 import 'profileOne.dart';
 import 'home.dart';
+
 class choiceQuestion extends StatefulWidget {
   const choiceQuestion({super.key});
 
@@ -40,7 +41,6 @@ class _choiceQuestionState extends State<choiceQuestion> {
           "Intel(R) Core(TM) i5-7300HQ CPU @ 2.50GHz   2.50 GHz Ram 12.0 GB",
       "images": "images/HDMI.png",
     }
-
   };
 
   @override
@@ -51,7 +51,7 @@ class _choiceQuestionState extends State<choiceQuestion> {
       MyAppProfile(num: 1, info: prezInfo)
     ];
     return Scaffold(
-      body: screens[currentIndex],
+        body: screens[currentIndex],
         bottomNavigationBar: BottomNavigationBar(
           onTap: (index) => setState(() => currentIndex = index),
           type: BottomNavigationBarType.fixed,
@@ -87,7 +87,6 @@ class _choiceQuestionState extends State<choiceQuestion> {
           // currentIndex: _selectedIndex,
           selectedItemColor: Colors.white,
           // onTap: _onItemTapped,
-        )
-    );
+        ));
   }
 }

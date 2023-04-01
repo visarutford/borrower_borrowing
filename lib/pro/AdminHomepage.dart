@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rapeepat_first_app/project/lib/pro/adminBorrowing.dart';
+import 'package:login/pro/adminBorrowing.dart';
 import 'adminRequest.dart';
 import 'order.dart';
 import 'profileOne.dart';
 import 'home.dart';
+
 class adminHomePage extends StatefulWidget {
   const adminHomePage({super.key});
 
@@ -21,7 +22,7 @@ class _adminHomePageState extends State<adminHomePage> {
       "returnText": "Return date: dd/mm/yyyy",
       "equipment": "Laptop",
       "data":
-      "Intel(R) Core(TM) i5-7300HQ CPU @ 2.50GHz   2.50 GHz Ram 12.0 GB",
+          "Intel(R) Core(TM) i5-7300HQ CPU @ 2.50GHz   2.50 GHz Ram 12.0 GB",
       "images": "images/laptop.png",
     },
     2: {
@@ -30,7 +31,7 @@ class _adminHomePageState extends State<adminHomePage> {
       "returnText": "Return date: dd/mm/yyyy2",
       "equipment": "Ipad",
       "data":
-      "Intel(R) Core(TM) i5-7300HQ CPU @ 2.50GHz   2.50 GHz Ram 12.0 GB",
+          "Intel(R) Core(TM) i5-7300HQ CPU @ 2.50GHz   2.50 GHz Ram 12.0 GB",
       "images": "images/ipadNew.png",
     },
     3: {
@@ -39,19 +40,14 @@ class _adminHomePageState extends State<adminHomePage> {
       "returnText": "Return date: dd/mm/yyyy3",
       "equipment": "HDMI",
       "data":
-      "Intel(R) Core(TM) i5-7300HQ CPU @ 2.50GHz   2.50 GHz Ram 12.0 GB",
+          "Intel(R) Core(TM) i5-7300HQ CPU @ 2.50GHz   2.50 GHz Ram 12.0 GB",
       "images": "images/HDMI.png",
     }
-
   };
 
   @override
   Widget build(BuildContext context) {
-    final screens = [
-        AdminPage(),
-      AdminBorrowing()
-
-    ];
+    final screens = [AdminPage(), AdminBorrowing()];
     return Scaffold(
         body: screens[currentIndex],
         bottomNavigationBar: BottomNavigationBar(
@@ -82,7 +78,6 @@ class _adminHomePageState extends State<adminHomePage> {
           // currentIndex: _selectedIndex,
           selectedItemColor: Colors.white,
           // onTap: _onItemTapped,
-        )
-    );
+        ));
   }
 }
