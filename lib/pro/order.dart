@@ -103,7 +103,7 @@ class _MyOrderState extends State<MyOrder> {
               ),
               BoxBorrower(imageBoxBor: "images/laptop.png", equipmentBoxBor: "Laptop", returnBoxBor: returnText),
 
-              buttonAdd(colorAdd: Colors.blueAccent, nameButton: "Confirm")
+              OrderButton(colorAdd: Colors.blueAccent, nameButton: "Confirm")
             ],
 
           ),
@@ -199,3 +199,49 @@ class _BoxBorrowerState extends State<BoxBorrower> {
   }
 }
 
+class OrderButton extends StatefulWidget {
+  late final Color colorAdd;
+  late final String nameButton;
+  OrderButton({super.key, required this.colorAdd, required  this.nameButton,
+  });
+  @override
+  _OrderButtonState createState() => _OrderButtonState(colorAdd,nameButton);
+}
+
+class _OrderButtonState extends State<OrderButton> {
+  late Color colorAdd;
+  late String nameButton;
+
+  _OrderButtonState(this.colorAdd, this.nameButton);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(0.5),
+      child: ElevatedButton(
+        onPressed: () {
+          date_list.clear();
+          item_list.clear();
+          debugPrint("Clear the list");
+          debugPrint("List of item: $item_list \n List of date: $date_list ");
+        },
+        style: ElevatedButton.styleFrom(
+          primary: colorAdd,
+          minimumSize: Size(50, 30),
+
+        ),
+        child:  Text(
+          nameButton,
+          textDirection: TextDirection.ltr,
+          style: const TextStyle(
+            decoration: TextDecoration.none,
+            fontFamily: 'Prompt',
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
+  }
+}

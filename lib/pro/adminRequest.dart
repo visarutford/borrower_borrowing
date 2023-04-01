@@ -129,13 +129,13 @@ class _RequestBoxState extends State<RequestBox> {
                 const SizedBox(height: 25),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.end,
-                  children: const [
-                    buttonAdd(
+                  children:  [
+                    adminButton(
                       colorAdd: Colors.green,
                       nameButton: "Approve",
                     ),
                     SizedBox(width: 10),
-                    buttonAdd(
+                    adminButton(
                       colorAdd: Colors.red,
                       nameButton: "Decline",
                     )
@@ -147,7 +147,49 @@ class _RequestBoxState extends State<RequestBox> {
         ],
       ),
     );
+  }
+}
 
 
+class adminButton extends StatefulWidget {
+  late final Color colorAdd;
+  late final String nameButton;
+  adminButton({super.key, required this.colorAdd, required  this.nameButton,
+  });
+  @override
+  _buttonAddState createState() => _buttonAddState(colorAdd,nameButton);
+}
+
+class _buttonAddState extends State<buttonAdd> {
+  late Color colorAdd;
+  late String nameButton;
+
+  _buttonAddState(this.colorAdd, this.nameButton);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(0.5),
+      child: ElevatedButton(
+        onPressed: () {
+        },
+        style: ElevatedButton.styleFrom(
+          primary: colorAdd,
+          minimumSize: Size(50, 30),
+
+        ),
+        child:  Text(
+          nameButton,
+          textDirection: TextDirection.ltr,
+          style: const TextStyle(
+            decoration: TextDecoration.none,
+            fontFamily: 'Prompt',
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
+      ),
+    );
   }
 }

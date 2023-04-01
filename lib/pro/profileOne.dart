@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:login/pro/home.dart';
 import 'package:login/screen/home.dart';
 
 class MyAppProfile extends StatefulWidget {

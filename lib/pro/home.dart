@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'order.dart';
 
 var iPadTime, laptopTime, hdmiTime;
+var item_list = [];
+var date_list = [];
 
 class MyAppHome extends StatefulWidget {
   const MyAppHome({Key? key, required this.num, required this.info})
@@ -52,6 +54,70 @@ class _MyAppHomeState extends State<MyAppHome> {
   }
 }
 
+class buttonDate extends StatefulWidget {
+  String equipmentNameDate;
+  buttonDate({super.key, required this.equipmentNameDate});
+
+  @override
+  State<buttonDate> createState() => _buttonDateState(equipmentNameDate);
+}
+
+class _buttonDateState extends State<buttonDate> {
+  late String equipmentNameDate;
+  _buttonDateState(this.equipmentNameDate);
+  DateTime _dateTime = DateTime.now();
+
+  void _showDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+    ).then((value) => {
+      setState(() {
+        _dateTime = value!;
+        debugPrint(equipmentNameDate);
+        if (equipmentNameDate == "iPad") {
+          iPadTime = _dateTime.day.toString() +
+              "/" +
+              _dateTime.month.toString() +
+              "/" +
+              _dateTime.year.toString();
+        }
+        if (equipmentNameDate == "Laptop") {
+          laptopTime = _dateTime.day.toString() +
+              "/" +
+              _dateTime.month.toString() +
+              "/" +
+              _dateTime.year.toString();
+        }
+        if (equipmentNameDate == "HDMI") {
+          hdmiTime = _dateTime.day.toString() +
+              "/" +
+              _dateTime.month.toString() +
+              "/" +
+              _dateTime.year.toString();
+        }
+      })
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        // Text(dateVar, style: TextStyle(fontSize: 15, color: Colors.white)),
+        MaterialButton(
+          onPressed: _showDatePicker,
+          child: Text("Choose Date", style: TextStyle(color: Colors.white)),
+          color: Colors.blue,
+        ),
+      ],
+    );
+  }
+}
+
+
 Widget buildRowOne(String qusetion) => Container(
       color: const Color(0xFF282c34), // Set background color here
       height: 150,
@@ -79,31 +145,37 @@ Widget buildRowOne(String qusetion) => Container(
       ),
     );
 
-Widget buildRowTwo(context, returnText, data, images, equipment) => Center(
+Widget buildRowTwo(context, returnText, data, images, equipment) =>
+    Center(
       child: Column(
         children: [
-          boxHome(imagesBOX: images, equipmentBOX: "Laptop"),
-          const boxHome(imagesBOX: "images/ipadNew.png", equipmentBOX: "iPad"),
-          const boxHome(imagesBOX: "images/HDMI.png", equipmentBOX: "HDMI")
+          boxHome(imagesBOX: "images/laptop.png", equipmentBOX: "Laptop", itemName: "Laptop", itemDate: "xx/yy/zz",),
+           boxHome(imagesBOX: "images/ipadNew.png", equipmentBOX: "iPad",itemName: "iPad",itemDate: "xx/yy/zz",),
+           boxHome(imagesBOX: "images/HDMI.png", equipmentBOX: "HDMI",itemName: "HDMI",itemDate: "xx/yy/zz")
           /////////////////////////////
         ],
       ),
     );
 
+
 /// ปุ่ม Add
 class buttonAdd extends StatefulWidget {
   final Color colorAdd;
   final String nameButton;
-  const buttonAdd(
-      {super.key, required this.colorAdd, required this.nameButton});
+  late String itemName;
+  late String itemDate;
+  buttonAdd({super.key, required this.colorAdd, required  this.nameButton,
+  required this.itemName, required this.itemDate});
   @override
-  _buttonAddState createState() => _buttonAddState(colorAdd, nameButton);
+  _buttonAddState createState() => _buttonAddState(colorAdd,nameButton,itemName,itemDate);
 }
 
 class _buttonAddState extends State<buttonAdd> {
   late Color colorAdd;
   late String nameButton;
-  _buttonAddState(this.colorAdd, this.nameButton);
+  late String itemName;
+  late String itemDate;
+  _buttonAddState(this.colorAdd, this.nameButton, this.itemName, this.itemDate);
 
   @override
   Widget build(BuildContext context) {
@@ -111,14 +183,26 @@ class _buttonAddState extends State<buttonAdd> {
       padding: const EdgeInsets.all(0.5),
       child: ElevatedButton(
         onPressed: () {
-          debugPrint(
-              "IpadTime:$iPadTime \n HDMItime: $hdmiTime \n  LaptopTime: $laptopTime");
+          item_list.add(itemName);
+
+          if (itemName == "iPad") {
+            date_list.add(iPadTime);
+          } if (itemName == "Laptop") {
+            date_list.add(laptopTime);
+          }if (itemName == "HDMI") {
+            date_list.add(hdmiTime);
+          }
+
+
+
+          debugPrint("List of item: $item_list \n List of date: $date_list ");
         },
         style: ElevatedButton.styleFrom(
           primary: colorAdd,
           minimumSize: Size(50, 30),
+
         ),
-        child: Text(
+        child:  Text(
           nameButton,
           textDirection: TextDirection.ltr,
           style: const TextStyle(
@@ -134,85 +218,26 @@ class _buttonAddState extends State<buttonAdd> {
   }
 }
 
-/// ปุ่มวันที่
-class buttonDate extends StatefulWidget {
-  String equipmentNameDate;
-  buttonDate({super.key, required this.equipmentNameDate});
-
-  @override
-  State<buttonDate> createState() => _buttonDateState(equipmentNameDate);
-}
-
-class _buttonDateState extends State<buttonDate> {
-  late String equipmentNameDate;
-  _buttonDateState(this.equipmentNameDate);
-  DateTime _dateTime = DateTime.now();
-
-  void _showDatePicker() {
-    showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2025),
-    ).then((value) => {
-          setState(() {
-            _dateTime = value!;
-            debugPrint(equipmentNameDate);
-            if (equipmentNameDate == "iPad") {
-              iPadTime = _dateTime.day.toString() +
-                  "/" +
-                  _dateTime.month.toString() +
-                  "/" +
-                  _dateTime.year.toString();
-            }
-            if (equipmentNameDate == "Laptop") {
-              laptopTime = _dateTime.day.toString() +
-                  "/" +
-                  _dateTime.month.toString() +
-                  "/" +
-                  _dateTime.year.toString();
-            }
-            if (equipmentNameDate == "HDMI") {
-              hdmiTime = _dateTime.day.toString() +
-                  "/" +
-                  _dateTime.month.toString() +
-                  "/" +
-                  _dateTime.year.toString();
-            }
-          })
-        });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        // Text(dateVar, style: TextStyle(fontSize: 15, color: Colors.white)),
-        MaterialButton(
-          onPressed: _showDatePicker,
-          child: Text("Choose Date", style: TextStyle(color: Colors.white)),
-          color: Colors.blue,
-        ),
-      ],
-    );
-  }
-}
-
 //// กล่องสี่เหลี่ยม
 class boxHome extends StatefulWidget {
   final String imagesBOX;
   final String equipmentBOX;
+  final String itemDate;
+  final String itemName;
   const boxHome(
-      {super.key, required this.imagesBOX, required this.equipmentBOX});
+      {super.key, required this.imagesBOX, required this.equipmentBOX,
+      required this.itemDate, required this.itemName});
 
   @override
-  State<boxHome> createState() => _boxHomeState(imagesBOX, equipmentBOX);
+  State<boxHome> createState() => _boxHomeState(imagesBOX, equipmentBOX,itemDate,itemName);
 }
 
 class _boxHomeState extends State<boxHome> {
   late String imagesBOX;
   late String equipmentBOX;
-  _boxHomeState(this.imagesBOX, this.equipmentBOX);
+  late String itemDate;
+  late String itemName;
+  _boxHomeState(this.imagesBOX, this.equipmentBOX, this.itemDate, this.itemName);
 
   @override
   Widget build(BuildContext context) {
@@ -223,57 +248,60 @@ class _boxHomeState extends State<boxHome> {
         border: Border.all(color: Colors.grey.shade400),
         borderRadius: BorderRadius.circular(8.0),
       ),
-      child: Row(
-        children: [
-          Container(
-            width: 170.0,
-            height: 130,
-            decoration: const BoxDecoration(
-              color: Color(0xFFd0dce4),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(8.0),
-                bottomLeft: Radius.circular(8.0),
+        child:  Row(
+          children: [
+            Container(
+              width: 170.0,
+              height: 130,
+              decoration: const BoxDecoration(
+                color: Color(0xFFd0dce4),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8.0),
+                  bottomLeft: Radius.circular(8.0),
+                ),
               ),
+              child: Image.asset(imagesBOX),
             ),
-            child: Image.asset(imagesBOX),
-          ),
-          Expanded(
-            child: Container(
-              margin: const EdgeInsets.all(15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        equipmentBOX,
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
+            Expanded(
+              child: Container(
+                margin: const EdgeInsets.all(15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          equipmentBOX,
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(height: 25),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      buttonDate(equipmentNameDate: equipmentBOX),
-                      const buttonAdd(
-                        colorAdd: Colors.green,
-                        nameButton: "Add",
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                    SizedBox(height: 25),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        buttonDate(equipmentNameDate: equipmentBOX),
+                         buttonAdd(
+                          colorAdd: Colors.green,
+                          nameButton: "Add",
+                          itemDate: itemDate,
+                          itemName: itemName,
+
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
-      ),
+          ],
+        ),
     );
   }
 }
