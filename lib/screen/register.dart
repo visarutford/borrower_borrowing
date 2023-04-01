@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import '../model/profile.dart';
-import 'home.dart';
+import 'package:login/model/profile.dart';
+import 'package:login/screen/home.dart';
 
 // ignore: camel_case_types
 class registerScreen extends StatefulWidget {
