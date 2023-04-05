@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'order.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 var iPadTime, laptopTime, hdmiTime;
 var list_of_order = [];
 var globalCounter = 1;
+String? userName = '';
+final user = FirebaseAuth.instance.currentUser;
 
 class OrderedItem {
   String item, dueDate, id;
@@ -40,6 +43,8 @@ class _MyAppHomeState extends State<MyAppHome> {
     data = widget.info[widget.num]["data"];
     images = widget.info[widget.num]["images"];
     equipment = widget.info[widget.num]["equipment"];
+    userName = FirebaseAuth.instance.currentUser?.displayName;
+
   }
 
   @override
@@ -235,6 +240,7 @@ class _buttonAddState extends State<buttonAdd> {
       padding: const EdgeInsets.all(0.5),
       child: ElevatedButton(
         onPressed: () {
+          debugPrint("current user:  ${FirebaseAuth.instance.currentUser!.email!}");
           debugPrint("Now the counter is : $globalCounter");
           if (itemName == "iPad") {
             list_of_order.add(OrderedItem(item: itemName, dueDate: iPadTime, id: counterIncrement().toString()));
