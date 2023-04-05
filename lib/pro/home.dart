@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 import 'order.dart';
 
+var iPadTime, laptopTime, hdmiTime;
+var list_of_order = [];
+var globalCounter = 1;
+
+class OrderedItem {
+  String item, dueDate, id;
+  OrderedItem({required this.id, required this.item, required this.dueDate,});
+}
+
 class MyAppHome extends StatefulWidget {
   const MyAppHome({Key? key, required this.num, required this.info})
       : super(key: key);
@@ -50,6 +59,88 @@ class _MyAppHomeState extends State<MyAppHome> {
   }
 }
 
+class buttonDate extends StatefulWidget {
+  String equipmentNameDate;
+  buttonDate({super.key, required this.equipmentNameDate});
+
+  @override
+  State<buttonDate> createState() => _buttonDateState(equipmentNameDate);
+}
+
+class _buttonDateState extends State<buttonDate> {
+  late String equipmentNameDate;
+  _buttonDateState(this.equipmentNameDate);
+  DateTime _dateTime = DateTime.now();
+
+  void _showDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2025),
+    ).then((value) => {
+          setState(() {
+            _dateTime = value!;
+            debugPrint(equipmentNameDate);
+            if (equipmentNameDate == "iPad") {
+              iPadTime = _dateTime.day.toString() +
+                  "/" +
+                  _dateTime.month.toString() +
+                  "/" +
+                  _dateTime.year.toString();
+            }
+            if (equipmentNameDate == "Laptop") {
+              laptopTime = _dateTime.day.toString() +
+                  "/" +
+                  _dateTime.month.toString() +
+                  "/" +
+                  _dateTime.year.toString();
+            }
+            if (equipmentNameDate == "HDMI") {
+              hdmiTime = _dateTime.day.toString() +
+                  "/" +
+                  _dateTime.month.toString() +
+                  "/" +
+                  _dateTime.year.toString();
+            }
+          })
+        });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+            _dateTime.day.toString() +
+                "/" +
+                _dateTime.month.toString() +
+                "/" +
+                _dateTime.year.toString(),
+            style: TextStyle(fontSize: 16, color: Colors.white)),
+    SizedBox(
+    width: 105, // change to your desired width
+    height: 29, // change to your desired height
+    child: MaterialButton(
+    onPressed: _showDatePicker,
+    child: Text(
+    "Due Date",
+    textDirection: TextDirection.ltr,
+    style: const TextStyle(
+    decoration: TextDecoration.none,
+    fontFamily: 'Prompt',
+    fontSize: 16.0,
+    fontWeight: FontWeight.bold,
+    color: Colors.white,
+    ),
+    ),
+    color: Colors.blue,
+    ),
+    ),
+      ],
+    );
+  }
+}
 
 Widget buildRowOne(String qusetion) => Container(
       color: const Color(0xFF282c34), // Set background color here
@@ -78,44 +169,95 @@ Widget buildRowOne(String qusetion) => Container(
       ),
     );
 
-Widget buildRowTwo(context, returnText, data, images, equipment) =>
-    Center(
+Widget buildRowTwo(context, returnText, data, images, equipment) => Center(
       child: Column(
         children: [
-          boxHome(imagesBOX: images, equipmentBOX: equipment),
-          const boxHome(imagesBOX: "images/ipadNew.png", equipmentBOX: "iPad"),
-          const boxHome(imagesBOX: "images/HDMI.png", equipmentBOX: "HDMI  ")
+          boxHome(
+            imagesBOX: "images/laptop.png",
+            equipmentBOX: "Laptop",
+            itemName: "Laptop",
+            itemDate: "xx/yy/zz",
+          ),
+          boxHome(
+            imagesBOX: "images/ipadNew.png",
+            equipmentBOX: "iPad",
+            itemName: "iPad",
+            itemDate: "xx/yy/zz",
+          ),
+          boxHome(
+              imagesBOX: "images/HDMI.png",
+              equipmentBOX: "HDMI",
+              itemName: "HDMI",
+              itemDate: "xx/yy/zz")
           /////////////////////////////
         ],
       ),
     );
 
-
 /// ปุ่ม Add
 class buttonAdd extends StatefulWidget {
   final Color colorAdd;
   final String nameButton;
-  const buttonAdd({super.key, required this.colorAdd, required  this.nameButton});
+  late String itemName;
+  late String itemDate;
+  late int counter;
+  buttonAdd(
+      {super.key,
+      required this.colorAdd,
+      required this.nameButton,
+      required this.itemName,
+      required this.itemDate,
+      required this.counter});
   @override
-  _buttonAddState createState() => _buttonAddState(colorAdd,nameButton);
+  _buttonAddState createState() =>
+      _buttonAddState(colorAdd, nameButton, itemName, itemDate, counter);
 }
 
 class _buttonAddState extends State<buttonAdd> {
   late Color colorAdd;
   late String nameButton;
-  _buttonAddState(this.colorAdd, this.nameButton);
+  late String itemName;
+  late String itemDate;
+  late int counter;
+
+  _buttonAddState(this.colorAdd, this.nameButton, this.itemName, this.itemDate, this.counter);
+ int realCounter = 0;
 
   @override
+
+  int counterIncrement() {
+    return globalCounter = globalCounter + 1;
+  }
+
   Widget build(BuildContext context) {
+
     return Padding(
       padding: const EdgeInsets.all(0.5),
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          debugPrint("Now the counter is : $globalCounter");
+          if (itemName == "iPad") {
+            list_of_order.add(OrderedItem(item: itemName, dueDate: iPadTime, id: counterIncrement().toString()));
+            debugPrint(list_of_order.toString());
+          }
+          if (itemName == "Laptop") {
+            debugPrint("After click Now the counter is : $globalCounter");
+            list_of_order.add(OrderedItem(item: itemName, dueDate: laptopTime, id: counterIncrement().toString()));
+            debugPrint(list_of_order.toString());
+          }
+          if (itemName == "HDMI") {
+            debugPrint("After click Now the counter is : $globalCounter");
+            list_of_order.add(OrderedItem(item: itemName, dueDate: hdmiTime, id: counterIncrement().toString()));
+            debugPrint(list_of_order.toString());
+
+          }
+
+        },
         style: ElevatedButton.styleFrom(
           primary: colorAdd,
           minimumSize: Size(50, 30),
         ),
-        child:  Text(
+        child: Text(
           nameButton,
           textDirection: TextDirection.ltr,
           style: const TextStyle(
@@ -135,17 +277,27 @@ class _buttonAddState extends State<buttonAdd> {
 class boxHome extends StatefulWidget {
   final String imagesBOX;
   final String equipmentBOX;
+  final String itemDate;
+  final String itemName;
   const boxHome(
-      {super.key, required this.imagesBOX, required this.equipmentBOX});
+      {super.key,
+      required this.imagesBOX,
+      required this.equipmentBOX,
+      required this.itemDate,
+      required this.itemName});
 
   @override
-  State<boxHome> createState() => _boxHomeState(imagesBOX, equipmentBOX);
+  State<boxHome> createState() =>
+      _boxHomeState(imagesBOX, equipmentBOX, itemDate, itemName);
 }
 
 class _boxHomeState extends State<boxHome> {
   late String imagesBOX;
   late String equipmentBOX;
-  _boxHomeState(this.imagesBOX, this.equipmentBOX);
+  late String itemDate;
+  late String itemName;
+  _boxHomeState(
+      this.imagesBOX, this.equipmentBOX, this.itemDate, this.itemName);
 
   @override
   Widget build(BuildContext context) {
@@ -156,56 +308,66 @@ class _boxHomeState extends State<boxHome> {
         border: Border.all(color: Colors.grey.shade400),
         borderRadius: BorderRadius.circular(8.0),
       ),
-        child:  Row(
-          children: [
-            Container(
-              width: 170.0,
-              height: 130,
-              decoration: const BoxDecoration(
-                color: Color(0xFFd0dce4),
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(8.0),
-                  bottomLeft: Radius.circular(8.0),
-                ),
+      child: Row(
+        children: [
+          Container(
+            width: 170.0,
+            height: 130,
+            decoration: const BoxDecoration(
+              color: Color(0xFFd0dce4),
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(8.0),
+                bottomLeft: Radius.circular(8.0),
               ),
-              child: Image.asset(imagesBOX),
             ),
-            Expanded(
-              child: Container(
-                margin: const EdgeInsets.all(15),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Text(
-                          equipmentBOX,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 18,
-                            fontWeight: FontWeight.bold,
+            child: Image.asset(imagesBOX),
+          ),
+          Expanded(
+            child: Container(
+              margin: const EdgeInsets.all(15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        equipmentBOX,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      buttonDate(equipmentNameDate: equipmentBOX),
+                      SizedBox(width: 5),
+                      Column(
+                        children: [
+                          SizedBox(height: 18),
+                          buttonAdd(
+                            colorAdd: Colors.green,
+                            nameButton: "Add",
+                            itemDate: itemDate,
+                            itemName: itemName,
+                            counter: 0,
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: 25),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const buttonAdd(
-                          colorAdd: Colors.green,
-                          nameButton: "Add",
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
+                        ],
+                      )
+                    ],
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
+      ),
     );
   }
 }

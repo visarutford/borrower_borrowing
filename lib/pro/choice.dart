@@ -57,16 +57,20 @@ class _choiceQuestionState extends State<choiceQuestion> {
           type: BottomNavigationBarType.fixed,
           backgroundColor: const Color(0xFF282c34),
           selectedFontSize: 18,
+          selectedIconTheme: IconThemeData(color: Colors.greenAccent),
+          selectedItemColor: Colors.greenAccent,
           unselectedFontSize: 15,
           unselectedItemColor: Colors.white,
           iconSize: 30,
           currentIndex: currentIndex,
           items: const [
             BottomNavigationBarItem(
+
               icon: Icon(
                 Icons.account_balance,
                 color: Colors.white,
               ),
+
               label: 'Home',
             ),
             BottomNavigationBarItem(
@@ -75,6 +79,7 @@ class _choiceQuestionState extends State<choiceQuestion> {
                 color: Colors.white,
               ),
               label: 'Order',
+
             ),
             BottomNavigationBarItem(
               icon: Icon(
@@ -85,7 +90,6 @@ class _choiceQuestionState extends State<choiceQuestion> {
             ),
           ],
           // currentIndex: _selectedIndex,
-          selectedItemColor: Colors.white,
           // onTap: _onItemTapped,
         ));
   }

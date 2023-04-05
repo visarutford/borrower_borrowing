@@ -183,11 +183,8 @@ class _boxHomeState extends State<boxHome> {
                   const SizedBox(height: 60),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
-                    children: const [
-                      buttonAdd(
-                        colorAdd: Colors.blue,
-                        nameButton: "clear",
-                      ),
+                    children:  [
+                      clearButton(colorAdd: Colors.blue, nameButton: "clear")
                     ],
                   ),
                 ],
@@ -195,6 +192,49 @@ class _boxHomeState extends State<boxHome> {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class clearButton extends StatefulWidget {
+  late final Color colorAdd;
+  late final String nameButton;
+  clearButton({super.key, required this.colorAdd, required  this.nameButton,
+  });
+  @override
+  _clearButtonState createState() => _clearButtonState(colorAdd,nameButton);
+}
+
+class _clearButtonState extends State<clearButton> {
+  late Color colorAdd;
+  late String nameButton;
+
+  _clearButtonState(this.colorAdd, this.nameButton);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(0.5),
+      child: ElevatedButton(
+        onPressed: () {
+        },
+        style: ElevatedButton.styleFrom(
+          primary: colorAdd,
+          minimumSize: Size(50, 30),
+
+        ),
+        child:  Text(
+          nameButton,
+          textDirection: TextDirection.ltr,
+          style: const TextStyle(
+            decoration: TextDecoration.none,
+            fontFamily: 'Prompt',
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
+        ),
       ),
     );
   }
