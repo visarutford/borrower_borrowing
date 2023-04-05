@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'home.dart';
-import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
 class Header extends StatelessWidget {
   final String text;
   const Header({super.key, required this.text});
@@ -80,69 +77,64 @@ class _MyOrderState extends State<MyOrder> {
       backgroundColor: const Color(0xFFd0dce4),
       body: Column(
         children: [
-         const Header(text: "Borrow"),
+         const Header(text: "Order"),
           SizedBox(height: 15),
 
           Container(
             padding: const EdgeInsets.only(left: 5,right: 5,top: 5, bottom: 10),
-            decoration:const BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(8.0),
-                    topRight: Radius.circular(8.0),
-                    bottomLeft: Radius.circular(8.0),
+                  decoration:const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(8.0),
+                  topRight: Radius.circular(8.0),
+                  bottomLeft: Radius.circular(8.0),
                     bottomRight: Radius.circular(8.0)
-                ),
-                color: Colors.white70
+          ),
+              color: Colors.white70
             ),child: Column(
-            children: [
-              Container(
-                child: SingleChildScrollView(
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    child: Column(
-                      children: list_of_order.map((personone){
-                        return Container(
-                          child: Card(
-                            child:ListTile(
-                              title: Text(personone.item),
-                              subtitle: Text(personone.dueDate),
-                              trailing: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    primary: Colors.redAccent
-                                ),
-                                child: Icon(Icons.delete),
-                                onPressed: (){
-                                  //delete action for this button
-                                  list_of_order.removeWhere((element){
-                                    return element.id == personone.id;
-                                  }); //go through the loop and match content to delete from list
-                                  setState(() {
-                                    //refresh UI after deleting element from list
-                                  });
-                                },
-                              ),
-                            ),
-                          ),
+            children: [BoxBorrower(
+              imageBoxBor: "images/HDMI.png",
+              equipmentBoxBor: "HDMI",
+              returnBoxBor: returnText,
+            ),
+              BoxBorrower(
+                imageBoxBor: "images/ipadNew.png",
+                equipmentBoxBor: "iPad",
+                returnBoxBor: returnText,
+              ),
+              BoxBorrower(imageBoxBor: "images/laptop.png", equipmentBoxBor: "Laptop", returnBoxBor: returnText),
 
-                        );
-                      }).toList(),
-                    ),
-                  ),
-                ),
-              )
-
-              ,
               OrderButton(colorAdd: Colors.blueAccent, nameButton: "Confirm")
             ],
 
           ),
           )
+
+
+
         ],
       ),
     );
   }
 }
 
+
+class OrderBox extends StatefulWidget {
+  late String imgURL, itemName;
+  OrderBox({Key? key, required this.imgURL, required this.itemName});
+
+  @override
+  State<OrderBox> createState() => _OrderBoxState(itemName, imgURL);
+}
+
+class _OrderBoxState extends State<OrderBox>{
+  _OrderBoxState(String itemName, String imgURL);
+  late String imgURL, itemName;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(children: [Text(itemName)],);
+  }
+}
 
 class BoxBorrower extends StatefulWidget {
   final String imageBoxBor;
@@ -210,7 +202,6 @@ class _BoxBorrowerState extends State<BoxBorrower> {
 class OrderButton extends StatefulWidget {
   late final Color colorAdd;
   late final String nameButton;
-
   OrderButton({super.key, required this.colorAdd, required  this.nameButton,
   });
   @override
@@ -220,59 +211,34 @@ class OrderButton extends StatefulWidget {
 class _OrderButtonState extends State<OrderButton> {
   late Color colorAdd;
   late String nameButton;
-  final Future<FirebaseApp> firebase = Firebase.initializeApp();
+
   _OrderButtonState(this.colorAdd, this.nameButton);
 
-
   @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(0.5),
+      child: ElevatedButton(
+        onPressed: () {
+          date_list.clear();
+          item_list.clear();
+          debugPrint("Clear the list");
+          debugPrint("List of item: $item_list \n List of date: $date_list ");
+        },
+        style: ElevatedButton.styleFrom(
+          primary: colorAdd,
+          minimumSize: Size(50, 30),
 
-  bool visibleOrNot() {
-    if (list_of_order.isNotEmpty) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-    Widget build(BuildContext context) {
-    return Visibility(
-      visible: visibleOrNot(),
-      child: Padding(
-        padding: const EdgeInsets.all(0.5),
-        child: ElevatedButton(
-          onPressed: () async {
-            for (int i = 0; i < list_of_order.length; i++) {
-
-              debugPrint("Class OrderedItem data item: ${list_of_order[i].item}");
-              debugPrint("Class OrderedItem data item: ${list_of_order[i].dueDate}");
-              debugPrint("Class OrderedItem data item: ${FirebaseAuth.instance.currentUser!.email!}");
-
-            }
-
-
-
-              debugPrint("Clear the list");
-              globalCounter = 0;
-              list_of_order.clear();
-              setState(() {
-
-              });
-
-          },
-          style: ElevatedButton.styleFrom(
-            primary: colorAdd,
-            minimumSize: Size(50, 30),
-
-          ),
-          child:  Text(
-            nameButton,
-            textDirection: TextDirection.ltr,
-            style: const TextStyle(
-              decoration: TextDecoration.none,
-              fontFamily: 'Prompt',
-              fontSize: 18.0,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
+        ),
+        child:  Text(
+          nameButton,
+          textDirection: TextDirection.ltr,
+          style: const TextStyle(
+            decoration: TextDecoration.none,
+            fontFamily: 'Prompt',
+            fontSize: 18.0,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
       ),
