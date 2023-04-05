@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'home.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
 class Header extends StatelessWidget {
   final String text;
   const Header({super.key, required this.text});
@@ -207,6 +210,7 @@ class _BoxBorrowerState extends State<BoxBorrower> {
 class OrderButton extends StatefulWidget {
   late final Color colorAdd;
   late final String nameButton;
+
   OrderButton({super.key, required this.colorAdd, required  this.nameButton,
   });
   @override
@@ -216,7 +220,7 @@ class OrderButton extends StatefulWidget {
 class _OrderButtonState extends State<OrderButton> {
   late Color colorAdd;
   late String nameButton;
-
+  final Future<FirebaseApp> firebase = Firebase.initializeApp();
   _OrderButtonState(this.colorAdd, this.nameButton);
 
 
@@ -235,9 +239,19 @@ class _OrderButtonState extends State<OrderButton> {
       child: Padding(
         padding: const EdgeInsets.all(0.5),
         child: ElevatedButton(
-          onPressed: () {
-            debugPrint("Clear the list");
-            globalCounter = 0;
+          onPressed: () async {
+            for (int i = 0; i < list_of_order.length; i++) {
+
+              debugPrint("Class OrderedItem data item: ${list_of_order[i].item}");
+              debugPrint("Class OrderedItem data item: ${list_of_order[i].dueDate}");
+              debugPrint("Class OrderedItem data item: ${FirebaseAuth.instance.currentUser!.email!}");
+
+            }
+
+
+
+              debugPrint("Clear the list");
+              globalCounter = 0;
               list_of_order.clear();
               setState(() {
 
