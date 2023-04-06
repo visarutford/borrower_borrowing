@@ -258,26 +258,8 @@ class _OrderButtonState extends State<OrderButton> {
                     })
                     .then((value) => print("User Added"))
                     .catchError((error) => print("Failed to add user: $error"));
-
-                // debugPrint(
-                //     "Class OrderedItem data item: ${list_of_order[i].item}");
-                // debugPrint(
-                //     "Class OrderedItem data item: ${list_of_order[i].dueDate}");
-                // debugPrint(
-                //     "Class OrderedItem data item: ${FirebaseAuth.instance.currentUser!.email!}");
               });
             }
-            // FirebaseFirestore.instance
-            //     .collection('request')
-            //     .doc("0IuQf364F2hbnD3qTx7z")
-            //     .get()
-            //     .then((DocumentSnapshot documentSnapshot) {
-            //   if (documentSnapshot.exists) {
-            //     print('Document data: ${documentSnapshot.data()}');
-            //   } else {
-            //     print('Document does not exist on the database');
-            //   }
-            // });
 
             FirebaseFirestore.instance
                 .collection('request')

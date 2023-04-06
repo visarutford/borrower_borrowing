@@ -51,35 +51,54 @@ class _AdminPageState extends State<AdminPage> {
                 child: Column(
                   children: list_of_order.map((order) {
                     return Container(
-                        child: ListTile(
-                            title: Text("Request from ${order['emailDB']}"),
-                            subtitle: Text(
-                                "Item: ${order['item']} \nDue date : ${order['dueDate']}"),
-                            trailing: Container(
-                              width: 200,
-                              child: Row(
-                                children: [
-                                  ElevatedButton(
-                                      onPressed: () {
-                                        // Add your button action here
-                                      },
-                                      child: Text('Approve'),
-                                      style: ElevatedButton.styleFrom(
-                                          primary: Colors.green)),
-                                  SizedBox(
-                                    width: 10,
+                      child: SingleChildScrollView(
+                        child: Container(
+                          padding: EdgeInsets.all(10),
+                          child: Column(
+                            children:
+                                List.generate(list_of_order.length, (index) {
+                              var order = list_of_order[index];
+                              return Container(
+                                child: ListTile(
+                                  title:
+                                      Text("Request from ${order['emailDB']}"),
+                                  subtitle: Text(
+                                      "Item: ${order['item']} \nDue date : ${order['dueDate']}"),
+                                  trailing: Container(
+                                    width: 200,
+                                    child: Row(
+                                      children: [
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            // Remove the order from the list and update the UI
+                                            list_of_order.removeAt(index);
+                                            setState(() {});
+                                          },
+                                          child: Text('Approve'),
+                                          style: ElevatedButton.styleFrom(
+                                              primary: Colors.green),
+                                        ),
+                                        SizedBox(width: 10),
+                                        ElevatedButton(
+                                          onPressed: () {
+                                            // Remove the order from the list and update the UI
+                                            list_of_order.removeAt(index);
+                                            setState(() {});
+                                          },
+                                          child: Text('Decline'),
+                                          style: ElevatedButton.styleFrom(
+                                              primary: Colors.red),
+                                        ),
+                                      ],
+                                    ),
                                   ),
-                                  ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                        primary: Colors.red),
-                                    onPressed: () {
-                                      // Add your button action here
-                                    },
-                                    child: Text('Decline'),
-                                  ),
-                                ],
-                              ),
-                            )));
+                                ),
+                              );
+                            }),
+                          ),
+                        ),
+                      ),
+                    );
                   }).toList(),
                 ),
               ),
