@@ -3,6 +3,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:login/pro/home.dart';
 import 'package:login/screen/home.dart';
+import 'package:flutter/material.dart';
+import 'home.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'datauser.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -12,13 +18,16 @@ class AdminPage extends StatefulWidget {
 }
 
 class _AdminPageState extends State<AdminPage> {
-  List<Map<String, String>> list_of_order = [];
+  List<Map<String, String>> adminList = [];
 
   @override
   void initState() {
     super.initState();
     getData();
   }
+
+  CollectionReference _requestCollection =
+  FirebaseFirestore.instance.collection("request");
 
   Future<void> getData() async {
     QuerySnapshot querySnapshot =
@@ -29,7 +38,7 @@ class _AdminPageState extends State<AdminPage> {
         'dueDate': doc.get('dueDateDB'),
         'emailDB': doc.get('emailDB'),
       };
-      list_of_order.add(orderData);
+      adminList.add(orderData);
     });
 
     // Call setState to update the state of the widget and trigger a rebuild
@@ -37,9 +46,8 @@ class _AdminPageState extends State<AdminPage> {
   }
 
   @override
-  Widget build(
-    BuildContext context,
-  ) {
+  @override
+  Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -49,52 +57,60 @@ class _AdminPageState extends State<AdminPage> {
               child: Container(
                 padding: EdgeInsets.all(10),
                 child: Column(
-                  children: list_of_order.map((order) {
+                  children: adminList.map((order) {
+                    debugPrint("THis is the  number of list :${adminList.length.toString()}");
                     return Container(
-                      child: SingleChildScrollView(
-                        child: Container(
-                          padding: EdgeInsets.all(10),
-                          child: Column(
-                            children:
-                                List.generate(list_of_order.length, (index) {
-                              var order = list_of_order[index];
-                              return Container(
-                                child: ListTile(
-                                  title:
-                                      Text("Request from ${order['emailDB']}"),
-                                  subtitle: Text(
-                                      "Item: ${order['item']} \nDue date : ${order['dueDate']}"),
-                                  trailing: Container(
-                                    width: 200,
-                                    child: Row(
-                                      children: [
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            // Remove the order from the list and update the UI
-                                            list_of_order.removeAt(index);
-                                            setState(() {});
-                                          },
-                                          child: Text('Approve'),
-                                          style: ElevatedButton.styleFrom(
-                                              primary: Colors.green),
-                                        ),
-                                        SizedBox(width: 10),
-                                        ElevatedButton(
-                                          onPressed: () {
-                                            // Remove the order from the list and update the UI
-                                            list_of_order.removeAt(index);
-                                            setState(() {});
-                                          },
-                                          child: Text('Decline'),
-                                          style: ElevatedButton.styleFrom(
-                                              primary: Colors.red),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }),
+                      child: ListTile(
+                        title: Text("Request from ${order['emailDB']}"),
+                        subtitle: Text(
+                            "Item: ${order['item']} \nDue date : ${order['dueDate']}"),
+                        trailing: Container(
+                          width: 200,
+                          child: Row(
+                            children: [
+                              ElevatedButton(
+                                onPressed: () async {
+                                  // Remove the o rder from the list and update the UI
+                                    await Future.delayed(Duration(seconds: 1), () async {
+
+                                      await _requestCollection
+                                          .add({
+                                        "itemDB": "${order['item']}",
+                                        "dueDateDB": "${order['dueDate']}",
+                                        "emailDB": "${order['emailDB']}",
+                                        "state": "yes",
+                                      })
+                                          .then((value) => print("User Added"))
+                                          .catchError((error) => print("Failed to add user: $error"));
+
+                                      // debugPrint(
+                                      //     "Class OrderedItem data item: ${list_of_order[i].item}");
+                                      // debugPrint(
+                                      //     "Class OrderedItem data item: ${list_of_order[i].dueDate}");
+                                      // debugPrint(
+                                      //     "Class OrderedItem data item: ${FirebaseAuth.instance.currentUser!.email!}");
+                                    });
+
+
+                                    adminList.remove(order);
+                                    setState(() {});
+                                },
+                                child: Text('Approve'),
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.green),
+                              ),
+                              SizedBox(width: 10),
+                              ElevatedButton(
+                                onPressed: () {
+                                  // Remove the order from the list and update the UI
+                                  adminList.remove(order);
+                                  setState(() {});
+                                },
+                                child: Text('Decline'),
+                                style: ElevatedButton.styleFrom(
+                                    primary: Colors.red),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -108,6 +124,7 @@ class _AdminPageState extends State<AdminPage> {
       ),
     );
   }
+
 }
 
 Widget buildRowOne(context) {

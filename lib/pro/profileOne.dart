@@ -12,7 +12,7 @@ class MyAppProfile extends StatefulWidget {
 }
 
 class _MyAppProfileState extends State<MyAppProfile> {
-  List<Map<String, String>> list_of_order = [];
+  List<Map<String, String>> userList = [];
 
   @override
   void initState() {
@@ -28,8 +28,9 @@ class _MyAppProfileState extends State<MyAppProfile> {
         'item': doc.get('itemDB'),
         'dueDate': doc.get('dueDateDB'),
         'emailDB': doc.get('emailDB'),
+        'stateDB' : doc.get('state')
       };
-      list_of_order.add(orderData);
+      userList.add(orderData);
     });
 
     // Call setState to update the state of the widget and trigger a rebuild
@@ -49,15 +50,16 @@ class _MyAppProfileState extends State<MyAppProfile> {
               child: Container(
                 padding: EdgeInsets.all(10),
                 child: Column(
-                  children: list_of_order.map((order) {
+                  children: userList.map((order) {
                     if (FirebaseAuth.instance.currentUser!.email! ==
                         order['emailDB']) {
-                      return Container(
-                        child: ListTile(
-                          title: Text(order['item'] ?? 'No item'),
-                          subtitle: Text(order['dueDate'] ?? 'No due date'),
-                        ),
-                      );
+                      debugPrint("this is state: ${order['state'].toString()}");
+                    return Container(
+                    child: ListTile(
+                    title: Text(order['item'] ?? 'No item'),
+                    subtitle: Text(order['dueDate'] ?? 'No due date'),
+                    ),
+                    );
                     } else {
                       return Container();
                     }

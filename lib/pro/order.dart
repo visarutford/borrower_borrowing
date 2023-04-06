@@ -240,6 +240,27 @@ class _OrderButtonState extends State<OrderButton> {
     }
   }
 
+  void _showDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("Request sent"),
+          content: Text("please check your item list at your profile"),
+          actions: <Widget>[
+            ElevatedButton(
+              child: const Text("OK"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      },
+    );
+  }
+
+
   Widget build(BuildContext context) {
     return Visibility(
       visible: visibleOrNot(),
@@ -247,8 +268,10 @@ class _OrderButtonState extends State<OrderButton> {
         padding: const EdgeInsets.all(0.5),
         child: ElevatedButton(
           onPressed: () async {
+            _showDialog(context);
             for (int i = 0; i < list_of_order.length; i++) {
-              await Future.delayed(Duration(seconds: 3), () async {
+              await Future.delayed(Duration(seconds: 1), () async {
+
                 await _requestCollection
                     .add({
                       "itemDB": list_of_order[i].item,
@@ -258,8 +281,26 @@ class _OrderButtonState extends State<OrderButton> {
                     })
                     .then((value) => print("User Added"))
                     .catchError((error) => print("Failed to add user: $error"));
+
+                // debugPrint(
+                //     "Class OrderedItem data item: ${list_of_order[i].item}");
+                // debugPrint(
+                //     "Class OrderedItem data item: ${list_of_order[i].dueDate}");
+                // debugPrint(
+                //     "Class OrderedItem data item: ${FirebaseAuth.instance.currentUser!.email!}");
               });
             }
+            // FirebaseFirestore.instance
+            //     .collection('request')
+            //     .doc("0IuQf364F2hbnD3qTx7z")
+            //     .get()
+            //     .then((DocumentSnapshot documentSnapshot) {
+            //   if (documentSnapshot.exists) {
+            //     print('Document data: ${documentSnapshot.data()}');
+            //   } else {
+            //     print('Document does not exist on the database');
+            //   }
+            // });
 
             FirebaseFirestore.instance
                 .collection('request')
