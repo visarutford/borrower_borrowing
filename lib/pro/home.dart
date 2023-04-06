@@ -9,8 +9,12 @@ String? userName = '';
 final user = FirebaseAuth.instance.currentUser;
 
 class OrderedItem {
-  String item, dueDate, id;
-  OrderedItem({required this.id, required this.item, required this.dueDate,});
+  String item, dueDate, id, isThisApprove;
+  OrderedItem(
+      {required this.id,
+      required this.item,
+      required this.dueDate,
+      required this.isThisApprove});
 }
 
 class MyAppHome extends StatefulWidget {
@@ -44,7 +48,6 @@ class _MyAppHomeState extends State<MyAppHome> {
     images = widget.info[widget.num]["images"];
     equipment = widget.info[widget.num]["equipment"];
     userName = FirebaseAuth.instance.currentUser?.displayName;
-
   }
 
   @override
@@ -123,25 +126,25 @@ class _buttonDateState extends State<buttonDate> {
                 "/" +
                 _dateTime.year.toString(),
             style: TextStyle(fontSize: 16, color: Colors.white)),
-    SizedBox(
-    width: 105, // change to your desired width
-    height: 29, // change to your desired height
-    child: MaterialButton(
-    onPressed: _showDatePicker,
-    child: Text(
-    "Due Date",
-    textDirection: TextDirection.ltr,
-    style: const TextStyle(
-    decoration: TextDecoration.none,
-    fontFamily: 'Prompt',
-    fontSize: 16.0,
-    fontWeight: FontWeight.bold,
-    color: Colors.white,
-    ),
-    ),
-    color: Colors.blue,
-    ),
-    ),
+        SizedBox(
+          width: 105, // change to your desired width
+          height: 29, // change to your desired height
+          child: MaterialButton(
+            onPressed: _showDatePicker,
+            child: Text(
+              "Due Date",
+              textDirection: TextDirection.ltr,
+              style: const TextStyle(
+                decoration: TextDecoration.none,
+                fontFamily: 'Prompt',
+                fontSize: 16.0,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
+            ),
+            color: Colors.blue,
+          ),
+        ),
       ],
     );
   }
@@ -225,41 +228,52 @@ class _buttonAddState extends State<buttonAdd> {
   late String itemDate;
   late int counter;
 
-  _buttonAddState(this.colorAdd, this.nameButton, this.itemName, this.itemDate, this.counter);
- int realCounter = 0;
+  _buttonAddState(this.colorAdd, this.nameButton, this.itemName, this.itemDate,
+      this.counter);
+  int realCounter = 0;
 
   @override
-
   int counterIncrement() {
     return globalCounter = globalCounter + 1;
   }
 
   Widget build(BuildContext context) {
-
     return Padding(
       padding: const EdgeInsets.all(0.5),
       child: ElevatedButton(
         onPressed: () {
-          debugPrint("current user:  ${FirebaseAuth.instance.currentUser!.email!}");
+          debugPrint(
+              "current user:  ${FirebaseAuth.instance.currentUser!.email!}");
           debugPrint("Now the counter is : $globalCounter");
           if (itemName == "iPad") {
-            list_of_order.add(OrderedItem(item: itemName, dueDate: iPadTime, id: counterIncrement().toString()));
+            list_of_order.add(OrderedItem(
+                item: itemName,
+                dueDate: iPadTime,
+                id: counterIncrement().toString(),
+                isThisApprove: "no"));
             debugPrint(list_of_order.toString());
-            _showDialog(context,itemName,iPadTime);
+            _showDialog(context, itemName, iPadTime);
           }
           if (itemName == "Laptop") {
             debugPrint("After click Now the counter is : $globalCounter");
-            list_of_order.add(OrderedItem(item: itemName, dueDate: laptopTime, id: counterIncrement().toString()));
+            list_of_order.add(OrderedItem(
+                item: itemName,
+                dueDate: laptopTime,
+                id: counterIncrement().toString(),
+                isThisApprove: "no"));
             debugPrint(list_of_order.toString());
-            _showDialog(context,itemName,laptopTime);
+            _showDialog(context, itemName, laptopTime);
           }
           if (itemName == "HDMI") {
             debugPrint("After click Now the counter is : $globalCounter");
-            list_of_order.add(OrderedItem(item: itemName, dueDate: hdmiTime, id: counterIncrement().toString()));
+            list_of_order.add(OrderedItem(
+                item: itemName,
+                dueDate: hdmiTime,
+                id: counterIncrement().toString(),
+                isThisApprove: "no"));
             debugPrint(list_of_order.toString());
-            _showDialog(context,itemName,hdmiTime);
+            _showDialog(context, itemName, hdmiTime);
           }
-
         },
         style: ElevatedButton.styleFrom(
           primary: colorAdd,
@@ -380,13 +394,13 @@ class _boxHomeState extends State<boxHome> {
   }
 }
 
-void _showDialog(BuildContext context,String itemName,String dateStack) {
+void _showDialog(BuildContext context, String itemName, String dateStack) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text("Item added"),
-        content: Text("Item : $itemName \ndue date : $dateStack" ),
+        content: Text("Item : $itemName \ndue date : $dateStack"),
         actions: <Widget>[
           ElevatedButton(
             child: const Text("OK"),

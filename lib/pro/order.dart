@@ -254,6 +254,7 @@ class _OrderButtonState extends State<OrderButton> {
                       "itemDB": list_of_order[i].item,
                       "dueDateDB": list_of_order[i].dueDate,
                       "emailDB": FirebaseAuth.instance.currentUser!.email!,
+                      "state": list_of_order[i].isThisApprove,
                     })
                     .then((value) => print("User Added"))
                     .catchError((error) => print("Failed to add user: $error"));
