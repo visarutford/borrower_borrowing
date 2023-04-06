@@ -51,12 +51,35 @@ class _AdminPageState extends State<AdminPage> {
                 child: Column(
                   children: list_of_order.map((order) {
                     return Container(
-                      child: ListTile(
-                        title: Text("Request from ${order['emailDB']}"),
-                        subtitle: Text(
-                            "item: ${order['item']} \ndue date :${order['dueDate']}"),
-                      ),
-                    );
+                        child: ListTile(
+                            title: Text("Request from ${order['emailDB']}"),
+                            subtitle: Text(
+                                "Item: ${order['item']} \nDue date : ${order['dueDate']}"),
+                            trailing: Container(
+                              width: 200,
+                              child: Row(
+                                children: [
+                                  ElevatedButton(
+                                      onPressed: () {
+                                        // Add your button action here
+                                      },
+                                      child: Text('Approve'),
+                                      style: ElevatedButton.styleFrom(
+                                          primary: Colors.green)),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        primary: Colors.red),
+                                    onPressed: () {
+                                      // Add your button action here
+                                    },
+                                    child: Text('Decline'),
+                                  ),
+                                ],
+                              ),
+                            )));
                   }).toList(),
                 ),
               ),
