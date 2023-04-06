@@ -4,55 +4,75 @@ import 'package:flutter/material.dart';
 import 'package:login/pro/home.dart';
 import 'package:login/screen/home.dart';
 
-class MyAppProfile extends StatefulWidget {
-  const MyAppProfile({Key? key, required this.num, required this.info})
-      : super(key: key);
-  final int num;
-  final Map<dynamic, dynamic> info;
+import 'package:cloud_firestore/cloud_firestore.dart';
 
+class MyAppProfile extends StatefulWidget {
   @override
-  State<MyAppProfile> createState() => _MyAppProfileState();
+  _MyAppProfileState createState() => _MyAppProfileState();
 }
 
 class _MyAppProfileState extends State<MyAppProfile> {
-  late String title;
-  late String qusetion;
-  late String returnText;
-  late String data;
-  late String images;
-  late String equipment;
-
-  bool previous = false;
-  Widget? nextPresident;
+  List<Map<String, String>> list_of_order = [];
 
   @override
   void initState() {
     super.initState();
-    title = widget.info[widget.num]["title"];
-    qusetion = widget.info[widget.num]["qusetion"];
-    returnText = widget.info[widget.num]["returnText"];
-    data = widget.info[widget.num]["data"];
-    images = widget.info[widget.num]["images"];
-    equipment = widget.info[widget.num]["equipment"];
+    getData();
+  }
+
+  Future<void> getData() async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('request').get();
+    querySnapshot.docs.forEach((doc) {
+      Map<String, String> orderData = {
+        'item': doc.get('itemDB'),
+        'dueDate': doc.get('dueDateDB'),
+        'emailDB': doc.get('emailDB'),
+      };
+      list_of_order.add(orderData);
+    });
+
+    // Call setState to update the state of the widget and trigger a rebuild
+    setState(() {});
   }
 
   @override
-  Widget build(BuildContext context) {
-    final screenW = MediaQuery.of(context).size.width;
-    debugPrint(screenW.toString());
-    return Scaffold(
-      backgroundColor: const Color(0xFFd0dce4),
-      body: Column(
+  Widget build(
+    BuildContext context,
+  ) {
+    return SingleChildScrollView(
+      child: Column(
         children: [
-          buildRowOne(qusetion, context),
-          buildRowTwo(context, returnText, data, images, equipment),
+          buildRowOne(context),
+          Container(
+            child: SingleChildScrollView(
+              child: Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  children: list_of_order.map((order) {
+                    if (FirebaseAuth.instance.currentUser!.email! ==
+                        order['emailDB']) {
+                      return Container(
+                        child: ListTile(
+                          title: Text(order['item'] ?? 'No item'),
+                          subtitle: Text(order['dueDate'] ?? 'No due date'),
+                        ),
+                      );
+                    } else {
+                      return Container();
+                    }
+                  }).toList(),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-Widget buildRowOne(String qusetion, context) {
+Widget buildRowOne(context) {
   return Container(
     color: const Color(0xFF282c34),
     // Set background color here

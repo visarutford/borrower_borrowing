@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
     final Color customColor = Color(0xFF282c34);
     return MaterialApp(
         title: 'Flutter Demo',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           primarySwatch: MaterialColor(
             customColor.value,

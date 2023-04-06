@@ -48,7 +48,7 @@ class _choiceQuestionState extends State<choiceQuestion> {
     final screens = [
       MyAppHome(num: 1, info: prezInfo),
       MyOrder(num: 1, info: prezInfo),
-      MyAppProfile(num: 1, info: prezInfo)
+      MyAppProfile()
     ];
     return Scaffold(
         body: screens[currentIndex],
@@ -65,12 +65,10 @@ class _choiceQuestionState extends State<choiceQuestion> {
           currentIndex: currentIndex,
           items: const [
             BottomNavigationBarItem(
-
               icon: Icon(
                 Icons.account_balance,
                 color: Colors.white,
               ),
-
               label: 'Home',
             ),
             BottomNavigationBarItem(
@@ -79,7 +77,6 @@ class _choiceQuestionState extends State<choiceQuestion> {
                 color: Colors.white,
               ),
               label: 'Order',
-
             ),
             BottomNavigationBarItem(
               icon: Icon(

@@ -245,17 +245,19 @@ class _buttonAddState extends State<buttonAdd> {
           if (itemName == "iPad") {
             list_of_order.add(OrderedItem(item: itemName, dueDate: iPadTime, id: counterIncrement().toString()));
             debugPrint(list_of_order.toString());
+            _showDialog(context,itemName,iPadTime);
           }
           if (itemName == "Laptop") {
             debugPrint("After click Now the counter is : $globalCounter");
             list_of_order.add(OrderedItem(item: itemName, dueDate: laptopTime, id: counterIncrement().toString()));
             debugPrint(list_of_order.toString());
+            _showDialog(context,itemName,laptopTime);
           }
           if (itemName == "HDMI") {
             debugPrint("After click Now the counter is : $globalCounter");
             list_of_order.add(OrderedItem(item: itemName, dueDate: hdmiTime, id: counterIncrement().toString()));
             debugPrint(list_of_order.toString());
-
+            _showDialog(context,itemName,hdmiTime);
           }
 
         },
@@ -378,6 +380,25 @@ class _boxHomeState extends State<boxHome> {
   }
 }
 
+void _showDialog(BuildContext context,String itemName,String dateStack) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("Item added"),
+        content: Text("Item : $itemName \ndue date : $dateStack" ),
+        actions: <Widget>[
+          ElevatedButton(
+            child: const Text("OK"),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          )
+        ],
+      );
+    },
+  );
+}
 
 
 ///////////////// ไม่ได้ใช้แล้ว ปุ่ม home order profile เดิม

@@ -248,21 +248,55 @@ class _OrderButtonState extends State<OrderButton> {
         child: ElevatedButton(
           onPressed: () async {
             for (int i = 0; i < list_of_order.length; i++) {
-              await Future.delayed(Duration(seconds: 5), () async {
-                await _requestCollection.add({
-                  "itemDB": list_of_order[i].item,
-                  "dueDateDB": list_of_order[i].dueDate,
-                  "emailDB": FirebaseAuth.instance.currentUser!.email!,
-                });
+              await Future.delayed(Duration(seconds: 3), () async {
+                await _requestCollection
+                    .add({
+                      "itemDB": list_of_order[i].item,
+                      "dueDateDB": list_of_order[i].dueDate,
+                      "emailDB": FirebaseAuth.instance.currentUser!.email!,
+                    })
+                    .then((value) => print("User Added"))
+                    .catchError((error) => print("Failed to add user: $error"));
 
-                debugPrint(
-                    "Class OrderedItem data item: ${list_of_order[i].item}");
-                debugPrint(
-                    "Class OrderedItem data item: ${list_of_order[i].dueDate}");
-                debugPrint(
-                    "Class OrderedItem data item: ${FirebaseAuth.instance.currentUser!.email!}");
+                // debugPrint(
+                //     "Class OrderedItem data item: ${list_of_order[i].item}");
+                // debugPrint(
+                //     "Class OrderedItem data item: ${list_of_order[i].dueDate}");
+                // debugPrint(
+                //     "Class OrderedItem data item: ${FirebaseAuth.instance.currentUser!.email!}");
               });
             }
+            // FirebaseFirestore.instance
+            //     .collection('request')
+            //     .doc("0IuQf364F2hbnD3qTx7z")
+            //     .get()
+            //     .then((DocumentSnapshot documentSnapshot) {
+            //   if (documentSnapshot.exists) {
+            //     print('Document data: ${documentSnapshot.data()}');
+            //   } else {
+            //     print('Document does not exist on the database');
+            //   }
+            // });
+
+            FirebaseFirestore.instance
+                .collection('request')
+                .get()
+                .then((QuerySnapshot querySnapshot) {
+              querySnapshot.docs.forEach((doc) {
+                //print('Document data: ${doc.data()}');
+                datausered.itemDB =
+                    doc.get('itemDB'); // get the value of the "itemDB" field
+                print('Item: $datausered.itemDB');
+
+                datausered.dueDateDB =
+                    doc.get('dueDateDB'); // get the value of the "itemDB" field
+                print('dueDateDB: $datausered.dueDateDB');
+
+                datausered.emailDB =
+                    doc.get('emailDB'); // get the value of the "itemDB" field
+                print('emailDB: $datausered.emailDB');
+              });
+            });
             debugPrint("Clear the list");
             globalCounter = 0;
             list_of_order.clear();
