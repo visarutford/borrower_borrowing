@@ -52,8 +52,8 @@ class _MyAppProfileState extends State<MyAppProfile> {
                 child: Column(
                   children: userList.map((order) {
                     if (FirebaseAuth.instance.currentUser!.email! ==
-                        order['emailDB']) {
-                      debugPrint("this is state: ${order['state'].toString()}");
+                        order['emailDB'] && order['stateDB'] == "yes") {
+                      debugPrint("this is state: ${order['stateDB']}");
                     return Container(
                     child: ListTile(
                     title: Text(order['item'] ?? 'No item'),
